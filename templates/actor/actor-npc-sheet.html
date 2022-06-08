@@ -49,7 +49,6 @@
     {{!-- Default tab is specified in actor-sheet.mjs --}}
     <a class="item" data-tab="description">Description</a>
     <a class="item" data-tab="items">Items</a>
-    <a class="item" data-tab="effects">Effects</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -63,12 +62,7 @@
 
     {{!-- Owned Items Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
-       {{> "systems/boilerplate/templates/actor/parts/actor-items.html"}}
-    </div>
-
-    {{!-- Active Effects Tab --}}
-    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
-      {{> "systems/boilerplate/templates/actor/parts/actor-effects.html"}}
+       {{> "systems/pendragon52/templates/actor/parts/actor-items.html"}}
     </div>
 
   </section>

@@ -1,16 +1,16 @@
-import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
+
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class BoilerplateActorSheet extends ActorSheet {
+export class pendragonActorSheet extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["boilerplate", "sheet", "actor"],
-      template: "systems/boilerplate/templates/actor/actor-sheet.html",
+      classes: ["pendragon52", "sheet", "actor"],
+      template: "systems/pendragon52/templates/actor/actor-sheet.html",
       width: 600,
       height: 600,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
@@ -19,7 +19,7 @@ export class BoilerplateActorSheet extends ActorSheet {
 
   /** @override */
   get template() {
-    return `systems/boilerplate/templates/actor/actor-${this.actor.data.type}-sheet.html`;
+    return `systems/pendragon52/templates/actor/actor-${this.actor.data.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -33,7 +33,7 @@ export class BoilerplateActorSheet extends ActorSheet {
     const context = super.getData();
 
     // Use a safe clone of the actor data for further operations.
-    const actorData = context.actor.data;
+    const actorData = this.actor.data.toObject(false);
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = actorData.data;
@@ -53,9 +53,6 @@ export class BoilerplateActorSheet extends ActorSheet {
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
 
-    // Prepare active effects
-    context.effects = prepareActiveEffectCategories(this.actor.effects);
-
     return context;
   }
 
@@ -69,7 +66,7 @@ export class BoilerplateActorSheet extends ActorSheet {
   _prepareCharacterData(context) {
     // Handle ability scores.
     for (let [k, v] of Object.entries(context.data.abilities)) {
-      v.label = game.i18n.localize(CONFIG.BOILERPLATE.abilities[k]) ?? k;
+      v.label = game.i18n.localize(CONFIG.PENDRAGON52.abilities[k]) ?? k;
     }
   }
 
@@ -150,9 +147,6 @@ export class BoilerplateActorSheet extends ActorSheet {
       li.slideUp(200, () => this.render(false));
     });
 
-    // Active Effect management
-    html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
-
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
 
@@ -215,8 +209,8 @@ export class BoilerplateActorSheet extends ActorSheet {
 
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : '';
-      let roll = new Roll(dataset.roll, this.actor.getRollData()).roll();
+      let label = dataset.label ? `[roll] ${dataset.label}` : '';
+      let roll = new Roll(dataset.roll, this.actor.getRollData());
       roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,

@@ -1,22 +1,17 @@
 {
-  "BOILERPLATE.AbilityStr": "Strength",
-  "BOILERPLATE.AbilityCon": "Constitution",
-  "BOILERPLATE.AbilityDex": "Dexterity",
-  "BOILERPLATE.AbilityInt": "Intelligence",
-  "BOILERPLATE.AbilityWis": "Wisdom",
-  "BOILERPLATE.AbilityCha": "Charisma",
+  "PENDRAGON52.AbilityStr": "Strength",
+  "PENDRAGON52.AbilityCon": "Constitution",
+  "PENDRAGON52.AbilityDex": "Dexterity",
+  "PENDRAGON52.AbilityInt": "Intelligence",
+  "PENDRAGON52.AbilityWis": "Wisdom",
+  "PENDRAGON52.AbilityCha": "Charisma",
 
-  "BOILERPLATE.AbilityStrAbbr": "str",
-  "BOILERPLATE.AbilityConAbbr": "con",
-  "BOILERPLATE.AbilityDexAbbr": "dex",
-  "BOILERPLATE.AbilityIntAbbr": "int",
-  "BOILERPLATE.AbilityWisAbbr": "wis",
-  "BOILERPLATE.AbilityChaAbbr": "cha",
+  "PENDRAGON52.AbilityStrAbbr": "str",
+  "PENDRAGON52.AbilityConAbbr": "con",
+  "PENDRAGON52.AbilityDexAbbr": "dex",
+  "PENDRAGON52.AbilityIntAbbr": "int",
+  "PENDRAGON52.AbilityWisAbbr": "wis",
+  "PENDRAGON52.AbilityChaAbbr": "cha",
 
-  "BOILERPLATE.EffectCreate": "Create Effect",
-  "BOILERPLATE.EffectToggle": "Toggle Effect",
-  "BOILERPLATE.EffectEdit": "Edit Effect",
-  "BOILERPLATE.EffectDelete": "Delete Effect",
-
-  "BOILERPLATE.Add": "Add"
+  "PENDRAGON52.Add": "Add"
 }

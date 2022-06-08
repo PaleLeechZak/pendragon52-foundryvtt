@@ -12,10 +12,9 @@
 @import 'global/grid';
 @import 'global/flex';
 
-/* Styles limited to boilerplate sheets */
-.boilerplate {
+/* Styles limited to pendragon52 sheets */
+.pendragon52 {
   @import 'components/forms';
   @import 'components/resource';
   @import 'components/items';
-  @import 'components/effects';
 }
