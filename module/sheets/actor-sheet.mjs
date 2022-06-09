@@ -40,14 +40,14 @@ export class pendragonActorSheet extends ActorSheet {
     context.flags = actorData.flags;
 
     // Prepare character data and items.
-    if (actorData.type == 'character') {
+    if (actorData.type == 'knight' || actorData.type == 'lady') {
       this._prepareItems(context);
       this._prepareCharacterData(context);
     }
 
     // Prepare NPC data and items.
-    if (actorData.type == 'npc') {
-      this._prepareItems(context);
+    if (actorData.type == 'creature') {
+      //  Do nothing, items are not a big component of Pendragon, especially not on NPCs
     }
 
     // Add roll data for TinyMCE editors.
@@ -64,9 +64,24 @@ export class pendragonActorSheet extends ActorSheet {
    * @return {undefined}
    */
   _prepareCharacterData(context) {
-    // Handle ability scores.
-    for (let [k, v] of Object.entries(context.data.abilities)) {
-      v.label = game.i18n.localize(CONFIG.PENDRAGON52.abilities[k]) ?? k;
+    // Handle localization cache for statistics.
+    for (let [k, v] of Object.entries(context.data.statistics)) {
+      v.label = game.i18n.localize(CONFIG.PENDRAGON52.statistics[k]) ?? k;
+    }
+
+    // Handle localization cache for combat skills.
+    for (let [k, v] of Object.entries(context.data.skills.combat)) {
+      v.label = game.i18n.localize(CONFIG.PENDRAGON52.combatSkills[k]) ?? k;
+    }
+
+    // Handle localization cache for other skills.
+    for (let [k, v] of Object.entries(context.data.skills.other)) {
+      v.label = game.i18n.localize(CONFIG.PENDRAGON52.otherSkills[k]) ?? k;
+    }
+
+    // Handle localization cache for traits.
+    for (let [k, v] of Object.entries(context.data.traits)) {
+      v.label = game.i18n.localize(CONFIG.PENDRAGON52.traits[k]) ?? k;
     }
   }
 
@@ -80,19 +95,6 @@ export class pendragonActorSheet extends ActorSheet {
   _prepareItems(context) {
     // Initialize containers.
     const gear = [];
-    const features = [];
-    const spells = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: []
-    };
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -101,22 +103,10 @@ export class pendragonActorSheet extends ActorSheet {
       if (i.type === 'item') {
         gear.push(i);
       }
-      // Append to features.
-      else if (i.type === 'feature') {
-        features.push(i);
-      }
-      // Append to spells.
-      else if (i.type === 'spell') {
-        if (i.data.spellLevel != undefined) {
-          spells[i.data.spellLevel].push(i);
-        }
-      }
     }
 
     // Assign and return
     context.gear = gear;
-    context.features = features;
-    context.spells = spells;
    }
 
   /* -------------------------------------------- */
