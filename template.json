@@ -1,52 +1,143 @@
 {
   "Actor": {
-    "types": ["character"],
+    "types": ["knight", "lady", "creature"],
     "templates": {
       "base": {
-        "health": {
-          "value": 10,
+        "hitPoints": {
+          "value": 1,
           "min": 0,
-          "max": 10
+          "max": 15
         },
-        "power": {
-          "value": 5,
-          "min": 0,
-          "max": 5
+        "glory": 0,
+        "age": 21,
+        "damage": 1,
+        "biography": "",
+        "homeland": "",
+        "culture": "",
+        "lord": "",
+        "currentClass": "",
+        "currentHome": "",
+        "distinctiveFeatures": "",
+        "statistics": {
+          "size": {
+            "value": 8
+          },
+          "dexterity": {
+            "value": 5
+          },
+          "strength": {
+            "value": 5
+          },
+          "constitution": {
+            "value": 5
+          },
+          "appearance": {
+            "value": 5
+          }
+        },
+        "skills": {
+          "combat": {
+            "battle": 0,
+            "horsemanship": 0
+          },
+          "others": {
+            "awareness": 0,
+            "compose": 0,
+            "courtesy": 0,
+            "dancing": 0,
+            "faerie_lore": 0,
+            "falconry": 0,
+            "fashion": 0,
+            "first_aid": 0,
+            "flirting": 0,
+            "folklore": 0,
+            "gaming": 0,
+            "heraldry": 0,
+            "hunting": 0,
+            "intrigue": 0,
+            "orate": 0,
+            "play": {"type": "", "amount": 0},
+            "read": {"type": "", "amount": 0},
+            "recognize": 0,
+            "religion": {"type": "", "amount": 0},
+            "romance": 0,
+            "singing": 0,
+            "stewardship": 0,
+            "swimming": 0,
+            "tourney": 0
+          }
+        },
+        "traits": {
+          "chaste_lustful": {"leftName": "chaste","leftAmount": 10, "rightName": "lustful", "rightAmount": 10, "balance":  20, "excepted": false},
+          "energetic_lazy": {"leftName": "energetic","leftAmount": 10, "rightName": "lazy", "rightAmount": 10, "balance":  20, "excepted": false},
+          "forgiving_vengeful": {"leftName": "forgiving","leftAmount": 10, "rightName": "vengeful", "rightAmount": 10, "balance":  20, "excepted": false},
+          "generous_selfish": {"leftName": "generous","leftAmount": 10, "rightName": "selfish", "rightAmount": 10, "balance":  20, "excepted": false},
+          "honest_deceitful": {"leftName": "honest","leftAmount": 10, "rightName": "deceitful", "rightAmount": 10, "balance":  20, "excepted": false},
+          "just_arbitrary": {"leftName": "just","leftAmount": 10, "rightName": "arbitrary", "rightAmount": 10, "balance":  20, "excepted": false},
+          "merciful_cruel": {"leftName": "merciful","leftAmount": 10, "rightName": "cruel", "rightAmount": 10, "balance":  20, "excepted": false},
+          "modest_proud": {"leftName": "modest","leftAmount": 10, "rightName": "proud", "rightAmount": 10, "balance":  20, "excepted": false},
+          "prudent_reckless": {"leftName": "prudent","leftAmount": 10, "rightName": "reckless", "rightAmount": 10, "balance":  20, "excepted": false},
+          "spiritual_worldly": {"leftName": "spiritual","leftAmount": 10, "rightName": "worldly", "rightAmount": 10, "balance":  20, "excepted": false},
+          "temperate_indulgent": {"leftName": "temperate","leftAmount": 10, "rightName": "indulgent", "rightAmount": 10, "balance":  20, "excepted": false},
+          "trusting_suspicious": {"leftName": "trusting","leftAmount": 10, "rightName": "suspicious", "rightAmount": 10, "balance":  20, "excepted": false},
+          "valorous_cowardly": {"leftName": "valorous","leftAmount": 10, "rightName": "cowardly", "rightAmount": 10, "balance":  20, "excepted": false}
+        },
+        "directed_traits": {}
+      }
+    },
+    "knight": {
+      "templates": ["base"],
+      "sonNumber": 1,
+      "skills": {
+        "combat": {
+          "weapons": {
+            "sword": 0,
+            "lance": 0,
+            "spear": 0,
+            "dagger": 0
+          }
+        },
+        "others": {
+          "boating": 0
         }
       }
     },
-    "character": {
+    "lady": {
       "templates": ["base"],
-      "biography": "",
-      "attributes": {
-        "level": {
-          "value": 1
-        }
-      },
-      "abilities": {
-        "str": {
-          "value": 10
+      "daughterNumber": 1,
+      "skills": {
+        "combat": {
+          "weapons": {
+            "dagger": 0
+          }
         },
-        "dex": {
-          "value": 10
-        },
-        "con": {
-          "value": 10
-        },
-        "int": {
-          "value": 10
-        },
-        "wis": {
-          "value": 10
-        },
-        "cha": {
-          "value": 10
+        "others": {
+          "chirurgery": 0
         }
       }
+    },
+    "creature": {
+      "gloryAward": 0,
+      "glory": 0,
+      "statistics": {
+        "siz": 0,
+        "dex": 0,
+        "str": 0,
+        "con": 0,
+        "app": 0
+      },
+      "move": 0,
+      "armor": 0,
+      "damage": 1,
+      "hitPoints": 0,
+      "combatSkills": {},
+      "skills": {},
+      "traits": {},
+      "modifiers": {}
     }
   },
   "Item": {
-    "types": ["item", "feature", "spell"],
+    "types": ["item"],
     "templates": {
       "base": {
         "description": ""
@@ -55,14 +146,8 @@
     "item": {
       "templates": ["base"],
       "quantity": 1,
-      "weight": 0
-    },
-    "feature": {
-      "templates": ["base"]
-    },
-    "spell": {
-      "templates": ["base"],
-      "spellLevel": 1
+      "weight": 0,
+      "formula": "d20 + @str.mod + ceil(@lvl / 2)"
     }
   }
 }
