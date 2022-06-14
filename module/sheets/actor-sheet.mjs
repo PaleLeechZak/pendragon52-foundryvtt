@@ -1,4 +1,4 @@
-
+import {PendragonDice} from "../dice.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -75,13 +75,14 @@ export class pendragonActorSheet extends ActorSheet {
     }
 
     // Handle localization cache for other skills.
-    for (let [k, v] of Object.entries(context.data.skills.other)) {
+    for (let [k, v] of Object.entries(context.data.skills.others)) {
       v.label = game.i18n.localize(CONFIG.PENDRAGON52.otherSkills[k]) ?? k;
     }
 
     // Handle localization cache for traits.
     for (let [k, v] of Object.entries(context.data.traits)) {
-      v.label = game.i18n.localize(CONFIG.PENDRAGON52.traits[k]) ?? k;
+      v.leftLabel = game.i18n.localize(CONFIG.PENDRAGON52.traits[v.leftName]) ?? k;
+      v.rightLabel = game.i18n.localize(CONFIG.PENDRAGON52.traits[v.rightName]) ?? k;
     }
   }
 
@@ -188,26 +189,47 @@ export class pendragonActorSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
-    // Handle item rolls.
-    if (dataset.rollType) {
-      if (dataset.rollType == 'item') {
-        const itemId = element.closest('.item').dataset.itemId;
-        const item = this.actor.items.get(itemId);
-        if (item) return item.roll();
-      }
+    if(dataset['stat'] !== undefined) {
+      console.log(dataset['stat']);
+      this.RollCheck(this.actor.data.data.statistics[dataset['stat']].value);
+    } else if(dataset['combatskill'] !== undefined) {
+      console.log(dataset['combatskill']);
+      this.RollCheck(this.actor.data.data.skills.combat[dataset['combatskill']].value);
+    } else if(dataset['otherskill'] !== undefined) {
+      console.log(dataset['otherskill']);
+      this.RollCheck(this.actor.data.data.skills.others[dataset['otherskill']].value);
+    } else if(dataset['lefttrait']) {
+      console.log(dataset['lefttrait']);
+      this.RollCheck(this.actor.data.data.traits[dataset['lefttrait']].leftAmount);
+    } else if(dataset['righttrait']) {
+      console.log(dataset['righttrait']);
+      this.RollCheck(this.actor.data.data.traits[dataset['righttrait']].rightAmount);
+    } else {
+    //  ?????
     }
+  }
 
-    // Handle rolls that supply the formula directly.
-    if (dataset.roll) {
-      let label = dataset.label ? `[roll] ${dataset.label}` : '';
-      let roll = new Roll(dataset.roll, this.actor.getRollData());
-      roll.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label,
-        rollMode: game.settings.get('core', 'rollMode'),
-      });
-      return roll;
-    }
+  RollCheck(target) {
+    PendragonDice.Roll({
+      parts: ["1d20"],
+      speaker: {actor: this.actor.id},
+      data:{
+        type: "check",
+
+        target,
+        roll: {blindroll: false},
+      }});
+  }
+
+  RollAdvancement(target) {
+    PendragonDice.Roll({
+      parts: ["1d20"],
+      speaker: {actor: this.actor.id},
+      data:{
+        type: "advancement",
+        target,
+        roll: {blindroll: false},
+      }});
   }
 
 }

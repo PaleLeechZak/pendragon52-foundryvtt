@@ -1,4 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+.roll-critical {
+  color: #00aa55;
+}
+
+.roll-success {
+  color: #003300;
+}
+
+.roll-failure {
+  color: #330000;
+}
+
+.roll-fumble {
+  color: #ff3300;
+}
+
 /* Global styles */
 .window-app {
   font-family: "Roboto", sans-serif;
@@ -224,6 +240,13 @@
 }
 
 /* Styles limited to pendragon52 sheets */
+.pendragon52 {
+  /* ----------------------------------------- */
+  /*  Items Lists                              */
+  /* ----------------------------------------- */
+  /* Example style for pendragon (can be removed if not needed) */
+}
+
 .pendragon52 .item-form {
   font-family: "Roboto", sans-serif;
 }

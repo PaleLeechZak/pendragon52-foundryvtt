@@ -1,0 +1,25 @@
+<form class="pendragon roll-dialog">
+    {{#if data.rollData.details}}
+    <div class="roll-details">
+        {{data.rollData.details}}
+    </div>
+    {{/if}}
+    <div class="form-group">
+        <label>{{localize "Pendragon52.Rolls.Formula"}}</label>
+        <input type="text" name="formula" value="{{formula}}" disabled />
+    </div>
+    <div class="form-group">
+        <label>{{localize "Pendragon52.Rolls.Modifier"}}</label>
+        <input type="text" name="bonus" value="" placeholder="{{localize 'Pendragon52.Rolls.ExampleModifier'}}" />
+    </div>
+    <div class="form-group">
+        <label>{{localize "Pendragon52.Rolls.RollMode"}}</label>
+        <select name="rollMode">
+            {{#select rollMode}}
+            {{#each rollModes as |label mode|}}
+            <option value="{{mode}}">{{localize label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+</form>

@@ -5,10 +5,8 @@
  */
  export const preloadHandlebarsTemplates = async function() {
   return loadTemplates([
-
     // Actor partials.
-    "systems/pendragon52/templates/actor/parts/actor-features.html",
-    "systems/pendragon52/templates/actor/parts/actor-items.html",
-    "systems/pendragon52/templates/actor/parts/actor-spells.html",
+      "systems/pendragon52/templates/actor/parts/actor-items.html",
+      "systems/pendragon52/templates/actor/parts/actor-skill.html",
   ]);
 };

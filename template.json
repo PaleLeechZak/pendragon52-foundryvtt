@@ -37,50 +37,183 @@
         },
         "skills": {
           "combat": {
-            "battle": 0,
-            "horsemanship": 0
+            "battle": {
+              "value": 0,
+              "advancement": false
+            },
+            "horsemanship": {
+              "value": 0,
+              "advancement": false
+            }
           },
           "others": {
-            "awareness": 0,
-            "compose": 0,
-            "courtesy": 0,
-            "dancing": 0,
-            "faerie_lore": 0,
-            "falconry": 0,
-            "fashion": 0,
-            "first_aid": 0,
-            "flirting": 0,
-            "folklore": 0,
-            "gaming": 0,
-            "heraldry": 0,
-            "hunting": 0,
-            "intrigue": 0,
-            "orate": 0,
-            "play": {"type": "", "amount": 0},
-            "read": {"type": "", "amount": 0},
-            "recognize": 0,
-            "religion": {"type": "", "amount": 0},
-            "romance": 0,
-            "singing": 0,
-            "stewardship": 0,
-            "swimming": 0,
-            "tourney": 0
+            "awareness": {
+              "value": 0,
+              "advancement": false
+            },
+            "compose": {
+              "value": 0,
+              "advancement": false
+            },
+            "courtesy": {
+              "value": 0,
+              "advancement": false
+            },
+            "dancing": {
+              "value": 0,
+              "advancement": false
+            },
+            "faerie_lore": {
+              "value": 0,
+              "advancement": false
+            },
+            "falconry": {
+              "value": 0,
+              "advancement": false
+            },
+            "fashion": {
+              "value": 0,
+              "advancement": false
+            },
+            "first_aid": {
+              "value": 0,
+              "advancement": false
+            },
+            "flirting": {
+              "value": 0,
+              "advancement": false
+            },
+            "folklore": {
+              "value": 0,
+              "advancement": false
+            },
+            "gaming": {
+              "value": 0,
+              "advancement": false
+            },
+            "heraldry": {
+              "value": 0,
+              "advancement": false
+            },
+            "hunting": {
+              "value": 0,
+              "advancement": false
+            },
+            "intrigue": {
+              "value": 0,
+              "advancement": false
+            },
+            "orate": {
+              "value": 0,
+              "advancement": false
+            },
+            "play": {
+              "type": "",
+              "value": 0,
+              "advancement": false
+            },
+            "read": {
+              "type": "",
+              "value": 0,
+              "advancement": false
+            },
+            "recognize": {
+              "value": 0,
+              "advancement": false
+            },
+            "religion": {
+              "type": "",
+              "value": 0,
+              "advancement": false
+            },
+            "romance": {
+              "value": 0,
+              "advancement": false
+            },
+            "singing": {
+              "value": 0,
+              "advancement": false
+            },
+            "stewardship": {
+              "value": 0,
+              "advancement": false
+            },
+            "swimming": {
+              "value": 0,
+              "advancement": false
+            },
+            "tourney": {
+              "value": 0,
+              "advancement": false
+            }
           }
         },
         "traits": {
-          "chaste_lustful": {"leftName": "chaste","leftAmount": 10, "rightName": "lustful", "rightAmount": 10, "balance":  20, "excepted": false},
-          "energetic_lazy": {"leftName": "energetic","leftAmount": 10, "rightName": "lazy", "rightAmount": 10, "balance":  20, "excepted": false},
-          "forgiving_vengeful": {"leftName": "forgiving","leftAmount": 10, "rightName": "vengeful", "rightAmount": 10, "balance":  20, "excepted": false},
-          "generous_selfish": {"leftName": "generous","leftAmount": 10, "rightName": "selfish", "rightAmount": 10, "balance":  20, "excepted": false},
-          "honest_deceitful": {"leftName": "honest","leftAmount": 10, "rightName": "deceitful", "rightAmount": 10, "balance":  20, "excepted": false},
-          "just_arbitrary": {"leftName": "just","leftAmount": 10, "rightName": "arbitrary", "rightAmount": 10, "balance":  20, "excepted": false},
-          "merciful_cruel": {"leftName": "merciful","leftAmount": 10, "rightName": "cruel", "rightAmount": 10, "balance":  20, "excepted": false},
-          "modest_proud": {"leftName": "modest","leftAmount": 10, "rightName": "proud", "rightAmount": 10, "balance":  20, "excepted": false},
-          "prudent_reckless": {"leftName": "prudent","leftAmount": 10, "rightName": "reckless", "rightAmount": 10, "balance":  20, "excepted": false},
-          "spiritual_worldly": {"leftName": "spiritual","leftAmount": 10, "rightName": "worldly", "rightAmount": 10, "balance":  20, "excepted": false},
-          "temperate_indulgent": {"leftName": "temperate","leftAmount": 10, "rightName": "indulgent", "rightAmount": 10, "balance":  20, "excepted": false},
-          "trusting_suspicious": {"leftName": "trusting","leftAmount": 10, "rightName": "suspicious", "rightAmount": 10, "balance":  20, "excepted": false},
-          "valorous_cowardly": {"leftName": "valorous","leftAmount": 10, "rightName": "cowardly", "rightAmount": 10, "balance":  20, "excepted": false}
+          "chaste_lustful": {
+            "leftName": "chaste","leftAmount": 10, "leftAdvance":  false,
+            "rightName": "lustful", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "energetic_lazy": {
+            "leftName": "energetic","leftAmount": 10, "leftAdvance": false,
+            "rightName": "lazy", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "forgiving_vengeful": {
+            "leftName": "forgiving","leftAmount": 10, "leftAdvance": false,
+            "rightName": "vengeful", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "generous_selfish": {
+            "leftName": "generous","leftAmount": 10, "leftAdvance": false,
+            "rightName": "selfish", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "honest_deceitful": {
+            "leftName": "honest","leftAmount": 10, "leftAdvance": false,
+            "rightName": "deceitful", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "just_arbitrary": {
+            "leftName": "just","leftAmount": 10, "leftAdvance": false,
+            "rightName": "arbitrary", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "merciful_cruel": {
+            "leftName": "merciful","leftAmount": 10, "leftAdvance": false,
+            "rightName": "cruel", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "modest_proud": {
+            "leftName": "modest","leftAmount": 10, "leftAdvance": false,
+            "rightName": "proud", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "prudent_reckless": {
+            "leftName": "prudent","leftAmount": 10, "leftAdvance": false,
+            "rightName": "reckless", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "spiritual_worldly": {
+            "leftName": "spiritual","leftAmount": 10, "leftAdvance": false,
+            "rightName": "worldly", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "temperate_indulgent": {
+            "leftName": "temperate","leftAmount": 10, "leftAdvance": false,
+            "rightName": "indulgent", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "trusting_suspicious": {
+            "leftName": "trusting","leftAmount": 10, "leftAdvance": false,
+            "rightName": "suspicious", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          },
+          "valorous_cowardly": {
+            "leftName": "valorous","leftAmount": 10, "leftAdvance": false,
+            "rightName": "cowardly", "rightAmount": 10, "rightAdvance": false,
+            "balance":  20, "excepted": false
+          }
         },
         "directed_traits": {}
       }
@@ -90,15 +223,23 @@
       "sonNumber": 1,
       "skills": {
         "combat": {
-          "weapons": {
-            "sword": 0,
-            "lance": 0,
-            "spear": 0,
-            "dagger": 0
+          "sword": {
+            "value": 0
+          },
+          "lance": {
+            "value": 0
+          },
+          "spear": {
+            "value": 0
+          },
+          "dagger": {
+            "value": 0
           }
         },
         "others": {
-          "boating": 0
+          "boating": {
+            "value": 0
+          }
         }
       }
     },
@@ -107,12 +248,14 @@
       "daughterNumber": 1,
       "skills": {
         "combat": {
-          "weapons": {
-            "dagger": 0
+          "dagger": {
+            "value": 0
           }
         },
         "others": {
-          "chirurgery": 0
+          "chirurgery": {
+            "value": 0
+          }
         }
       }
     },
@@ -137,7 +280,7 @@
     }
   },
   "Item": {
-    "types": ["item"],
+    "types": ["item", "weapon"],
     "templates": {
       "base": {
         "description": ""
@@ -148,6 +291,10 @@
       "quantity": 1,
       "weight": 0,
       "formula": "d20 + @str.mod + ceil(@lvl / 2)"
+    },
+
+    "weapon": {
+
     }
   }
 }

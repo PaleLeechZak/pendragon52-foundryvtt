@@ -10,6 +10,14 @@
   "PENDRAGON52.CurrentHome": "Current Home",
   "PENDRAGON52.DistinctiveFeatures": "Distinctive Features",
 
+  "Pendragon.Roll.Failure": "Failure!",
+  "Pendragon.Roll.Fumble": "Fumble!",
+  "Pendragon.Roll.Success": "Success!",
+  "Pendragon.Roll.Critical": "Critical!",
+
+  "Pendragon.Roll.Roll": "Roll",
+  "Pendragon.Roll.Cancel": "Cancel",
+
   "PENDRAGON52.StatisticsSize": "Size",
   "PENDRAGON52.StatisticsSizeAbb": "SIZ",
   "PENDRAGON52.StatisticsDexterity": "Dexterity",
@@ -61,6 +69,7 @@
   "PENDRAGON52.TraitsLustful": "Lustful",
   "PENDRAGON52.TraitsEnergetic": "Energetic",
   "PENDRAGON52.TraitsLazy": "Lazy",
+  "PENDRAGON52.TraitsForgiving": "Forgiving",
   "PENDRAGON52.TraitsVengeful": "Vengeful",
   "PENDRAGON52.TraitsGenerous": "Generous",
   "PENDRAGON52.TraitsSelfish": "Selfish",
@@ -69,6 +78,7 @@
   "PENDRAGON52.TraitsJust": "Just",
   "PENDRAGON52.TraitsArbitrary": "Arbitrary",
   "PENDRAGON52.TraitsMerciful": "Merciful",
+  "PENDRAGON52.TraitsCruel": "Cruel",
   "PENDRAGON52.TraitsModest": "Modest",
   "PENDRAGON52.TraitsProud": "Proud",
   "PENDRAGON52.TraitsPrudent": "Prudent",

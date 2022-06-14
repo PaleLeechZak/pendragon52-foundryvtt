@@ -1,0 +1,11 @@
+<!--
+Unused ATM, this was originally intended as a reusable component for the knight sheet,
+but I couldn't figure out how to feed the skill/key pair to it and it wasn't handled automatically.
+Seemed that the skill was given to it as a root element and the key was dropped.
+-->
+<div class="skill flexrow flex-group-center">
+  <label for="data.skills.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20df20cs<=(@skills.{{key}}.value)df>(@skills.{{key}}.value)" data-label="{{skill.label}}">{{skill.label}}</label>
+  <input type="text" name="data.skills.{{key}}.value" value="{{skill.value}}" data-dtype="Number"/>
+  {{#skill.type}}<input type="text" name="data.skills.{{key}}.type" value="{{skill.type}}" data-dtype="Number"/>{{/skill.type}}
+  <input type="checkbox" name="data.skills.{{key}}.advancement" value="{{skill.advancement}}" data-dtype="Boolean"/>
+</div>

@@ -3,6 +3,11 @@
  * @extends {Actor}
  */
 export class pendragonActor extends Actor {
+  //TODO: ADDON: Introduce Lady & Creature sheets
+  //TODO: CORE: Implement Initiative
+  //TODO: CORE: Implement Winter-phase dialog
+  //TODO: ADDON: Implement Battle dialog
+  //TODO: CORE: Fix Trait rolling, currently a target is not set.
 
   /** @override */
   prepareData() {
@@ -35,35 +40,33 @@ export class pendragonActor extends Actor {
 
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
-    this._prepareCharacterData(actorData);
-    this._prepareNpcData(actorData);
+    this._prepareKnightData(actorData);
+    this._prepareLadyData(actorData);
+    this._prepareCreatureData(actorData);
   }
 
   /**
    * Prepare Character type specific data
    */
-  _prepareCharacterData(actorData) {
-    if (actorData.type !== 'character') return;
+  _prepareKnightData(actorData) {
+    if (actorData.type !== 'knight') return;
 
-    // Make modifications to data here. For example:
     const data = actorData.data;
+  }
 
-    // Loop through ability scores, and add their modifiers to our sheet output.
-    for (let [key, ability] of Object.entries(data.abilities)) {
-      // Calculate the modifier using d20 rules.
-      ability.mod = Math.floor((ability.value - 10) / 2);
-    }
+  _prepareLadyData(actorData) {
+    if (actorData.type !== 'lady') return;
+
+    const data = actorData.data;
   }
 
   /**
    * Prepare NPC type specific data.
    */
-  _prepareNpcData(actorData) {
-    if (actorData.type !== 'npc') return;
+  _prepareCreatureData(actorData) {
+    if (actorData.type !== 'creature') return;
 
-    // Make modifications to data here. For example:
     const data = actorData.data;
-    data.xp = (data.cr * data.cr) * 100;
   }
 
   /**
@@ -73,39 +76,26 @@ export class pendragonActor extends Actor {
     const data = super.getRollData();
 
     // Prepare character roll data.
-    this._getCharacterRollData(data);
-    this._getNpcRollData(data);
+    this._getKnightRollData(data);
+    this._getLadyRollData(data);
+    this._getCreatureRollData(data);
 
     return data;
   }
 
-  /**
-   * Prepare character roll data.
-   */
-  _getCharacterRollData(data) {
-    if (this.data.type !== 'character') return;
-
-    // Copy the ability scores to the top level, so that rolls can use
-    // formulas like `@str.mod + 4`.
-    if (data.abilities) {
-      for (let [k, v] of Object.entries(data.abilities)) {
-        data[k] = foundry.utils.deepClone(v);
-      }
-    }
-
-    // Add level for easier access, or fall back to 0.
-    if (data.attributes.level) {
-      data.lvl = data.attributes.level.value ?? 0;
-    }
+  _getKnightRollData(data) {
+    if (this.data.type !== 'knight') return;
   }
 
-  /**
-   * Prepare NPC roll data.
-   */
-  _getNpcRollData(data) {
-    if (this.data.type !== 'npc') return;
-
-    // Process additional NPC data here.
+  _getLadyRollData(data) {
+    if (this.data.type !== 'lady') return;
   }
 
+  _getCreatureRollData(data) {
+    if (this.data.type !== 'creature') return;
+  }
+
+  async rollInitiative() {
+
+  }
 }

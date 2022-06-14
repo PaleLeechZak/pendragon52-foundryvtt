@@ -1,4 +1,4 @@
-<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+<form class="pendragon knight flexcol" autocomplete="off">
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
@@ -28,33 +28,26 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="features">Features</a>
+    <a class="item" data-tab="statistics">Statistics</a>
     <a class="item" data-tab="description">Description</a>
-    <a class="item" data-tab="items">Items</a>
-    <a class="item" data-tab="spells">Spells</a>
+    <a class="item" data-tab="skills">Skills</a>
+    <a class="item" data-tab="traits">Traits</a>
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
 
-    {{!-- Owned Features Tab --}}
-    <div class="tab features" data-group="primary" data-tab="features">
-      <section class="grid grid-3col">
-        <aside class="sidebar">
-
-          {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-          use both the "grid" and "grid-Ncol" class where "N" can be any number
-          from 1 to 12 and will create that number of columns.  --}}
-          <div class="abilities flexcol">
-            {{#each data.statistics as |stat key|}}
-            <div class="ability flexrow flex-group-center">
-              <label for="data.statistics.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@statistics.{{key}}.mod" data-label="{{stat.label}}">{{stat.label}}</label>
-              <input type="text" name="data.statistics.{{key}}.value" value="{{stat.value}}" data-dtype="Number"/>
-              <span class="ability-mod rollable" data-roll="d20cs<=@statistics.{{key}}.mod" data-label="{{stat.label}}">{{numberFormat stat.value decimals=0 sign=true}}</span>
-            </div>
-            {{/each}}
+    {{!-- Statistics Tab --}}
+    <div class="tab statistics" data-group="primary" data-tab="statistics">
+      <section class="grid grid-span-2">
+        <div class="statistics flexcol">
+          {{#each data.statistics as |stat key|}}
+          <div class="statistic flexrow flex-group-center">
+            <label for="data.statistics.{{key}}.value" class="resource-label rollable flexlarge align-left" data-stat="{{key}}" data-label="{{stat.label}}">{{stat.label}}</label>
+            <input type="text" name="data.statistics.{{key}}.value" value="{{stat.value}}" data-dtype="Number"/>
           </div>
-        </aside>
+          {{/each}}
+        </div>
       </section>
     </div>
 
@@ -64,6 +57,52 @@
       {{editor content=data.biography target="data.biography" rollData=rollData button=true owner=owner editable=editable}}
     </div>
 
+    {{!-- Skills Tab --}}
+    <div class="tab skills" data-group="primary" data-tab="skills">
+      <section class="grid grid-span-2">
+        <div class="skills flexcol">
+          {{#each data.skills.combat as |skill key|}}
+          <div class="skill flexrow flex-group-center">
+            <label for="data.skills.combat.{{key}}.value" class="resource-label rollable flexlarge align-left" data-combatskill="{{key}}" data-label="{{skill.label}}">{{skill.label}}</label>
+            <input type="text" name="data.skills.combat.{{key}}.value" value="{{skill.value}}" data-dtype="Number"/>
+            {{#skill.type}}<input type="text" name="data.skills.combat.{{key}}.type" value="{{skill.type}}" data-dtype="Number"/>{{/skill.type}}
+            <input type="checkbox" name="data.skills.combat.{{key}}.advancement" value="{{skill.advancement}}" data-dtype="Boolean"/>
+          </div>
+          {{/each}}
+        </div>
+      </section>
+      <section class="grid grid-span-2">
+        <div class="skills flexcol">
+          {{#each data.skills.others as |skill key|}}
+          <div class="skill flexrow flex-group-center">
+            <label for="data.skills.others.{{key}}.value" class="resource-label rollable flexlarge align-left" data-otherskill="{{key}}" data-label="{{skill.label}}">{{skill.label}}</label>
+            <input type="text" name="data.skills.others.{{key}}.value" value="{{skill.value}}" data-dtype="Number"/>
+            {{#skill.type}}<input type="text" name="data.skills.others.{{key}}.type" value="{{skill.type}}" data-dtype="Number"/>{{/skill.type}}
+            <input type="checkbox" name="data.skills.others.{{key}}.advancement" value="{{skill.advancement}}" data-dtype="Boolean"/>
+          </div>
+          {{/each}}
+        </div>
+      </section>
+    </div>
+
+    {{!-- Traits Tab --}}
+    <div class="tab traits" data-group="primary" data-tab="traits">
+      <section class="grid grid-span-2">
+        <div class="traits flexcol">
+          {{#each data.traits as |traitpair key|}}
+          <div class="trait flexrow flex-group-center">
+            <label for="data.traits.{{key}}.leftAmount" class="resource-label rollable flexlarge align-left" data-lefttrait="{{key}}" data-label="{{traitPair.leftName}}">{{traitpair.leftLabel}}</label>
+            <input type="text" name="data.traits.{{key}}.leftAmount" value="{{traitpair.leftAmount}}" data-dtype="Number"/>
+            <input type="checkbox" name="data.traits.{{key}}.leftAdvance" value="{{traitpair.leftAdvance}}" data-dtype="Boolean"/>
+            <span>&nbsp;/&nbsp;</span>
+            <label for="data.traits.{{key}}.rightAmount" class="resource-label rollable flexlarge align-left" data-righttrait="{{key}}" data-label="{{traitPair.rightName}}">{{traitpair.rightLabel}}</label>
+            <input type="text" name="data.traits.{{key}}.rightAmount" value="{{traitpair.rightAmount}}" data-dtype="Number"/>
+            <input type="checkbox" name="data.traits.{{key}}.rightAdvance" value="{{traitpair.rightAdvance}}" data-dtype="Boolean"/>
+          </div>
+          {{/each}}
+        </div>
+      </section>
+    </div>
   </section>
 </form>
 

@@ -1,0 +1,20 @@
+$c-fumble: #ff3300;
+$c-failure: #330000;
+$c-success: #003300;
+$c-critical: #00aa55;
+
+.roll-critical {
+  color: $c-critical;
+}
+
+.roll-success {
+  color: $c-success;
+}
+
+.roll-failure {
+  color: $c-failure;
+}
+
+.roll-fumble {
+  color: $c-fumble;
+}

@@ -7,6 +7,7 @@ import { pendragonItemSheet } from "./sheets/item-sheet.mjs";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { PENDRAGON52 } from "./helpers/config.mjs";
+import * as chat from "./chat.js";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -72,3 +73,5 @@ Handlebars.registerHelper('toLowerCase', function(str) {
 
 Hooks.once("ready", async function() {
 });
+
+Hooks.on("renderChatMessage", chat.addChatMessageButtons);
