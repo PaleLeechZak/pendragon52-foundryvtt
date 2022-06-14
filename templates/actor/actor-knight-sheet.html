@@ -13,13 +13,21 @@
         {{!-- "flex-group-center" is also defined in the _grid.scss file
         and it will add a small amount of padding, a border, and will
         center all of its child elements content and text. --}}
-        <div class="resource flex-group-center">
-          <label for="data.hitPoints.value" class="resource-label">Health</label>
-          <div class="resource-content flexrow flex-center flex-between">
+        <div class="flexcol">
+        <label for="data.hitPoints.value" class="resource-label">Health</label>
+        <div class="resource-content">
           <input type="text" name="data.health.value" value="{{data.health.value}}" data-dtype="Number"/>
           <span> / </span>
           <input type="text" name="data.health.max" value="{{data.health.max}}" data-dtype="Number"/>
-          </div>
+        </div>
+        </div>
+        <div class="flexcol">
+          <label for="data.glory.value" class="resource-label">Glory</label>
+          <input class="resource-content" type="text" name="data.glory.value" value="{{data.glory.value}}" data-dtype="Number"/>
+        </div>
+        <div class="flexcol">
+          <label for="data.damage.value" class="resource-label">Damage <i class="fas fa-dice"></i> </label>
+          <input class="resource-content" type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="Number"/>
         </div>
       </div>
     </div>
@@ -65,8 +73,8 @@
           <div class="skill flexrow flex-group-center">
             <label for="data.skills.combat.{{key}}.value" class="resource-label rollable flexlarge align-left" data-combatskill="{{key}}" data-label="{{skill.label}}">{{skill.label}}</label>
             <input type="text" name="data.skills.combat.{{key}}.value" value="{{skill.value}}" data-dtype="Number"/>
-            {{#skill.type}}<input type="text" name="data.skills.combat.{{key}}.type" value="{{skill.type}}" data-dtype="Number"/>{{/skill.type}}
-            <input type="checkbox" name="data.skills.combat.{{key}}.advancement" value="{{skill.advancement}}" data-dtype="Boolean"/>
+            {{#if skill.hasType}}<input type="text" name="data.skills.combat.{{key}}.type" value="{{skill.type}}" data-dtype="String"/>{{/if}}
+            <input type="checkbox" name="data.skills.combat.{{key}}.advancement" {{checked skill.advancement}}/>
           </div>
           {{/each}}
         </div>
@@ -77,8 +85,8 @@
           <div class="skill flexrow flex-group-center">
             <label for="data.skills.others.{{key}}.value" class="resource-label rollable flexlarge align-left" data-otherskill="{{key}}" data-label="{{skill.label}}">{{skill.label}}</label>
             <input type="text" name="data.skills.others.{{key}}.value" value="{{skill.value}}" data-dtype="Number"/>
-            {{#skill.type}}<input type="text" name="data.skills.others.{{key}}.type" value="{{skill.type}}" data-dtype="Number"/>{{/skill.type}}
-            <input type="checkbox" name="data.skills.others.{{key}}.advancement" value="{{skill.advancement}}" data-dtype="Boolean"/>
+            {{#if skill.hasType}}<input type="text" name="data.skills.others.{{key}}.type" value="{{skill.type}}" data-dtype="String"/>{{/if}}
+            <input type="checkbox" name="data.skills.others.{{key}}.advancement" {{checked skill.advancement}}/>
           </div>
           {{/each}}
         </div>
@@ -93,11 +101,11 @@
           <div class="trait flexrow flex-group-center">
             <label for="data.traits.{{key}}.leftAmount" class="resource-label rollable flexlarge align-left" data-lefttrait="{{key}}" data-label="{{traitPair.leftName}}">{{traitpair.leftLabel}}</label>
             <input type="text" name="data.traits.{{key}}.leftAmount" value="{{traitpair.leftAmount}}" data-dtype="Number"/>
-            <input type="checkbox" name="data.traits.{{key}}.leftAdvance" value="{{traitpair.leftAdvance}}" data-dtype="Boolean"/>
+            <input name="data.traits.{{key}}.leftAdvance" type="checkbox" {{checked traitpair.leftAdvance}}/>
             <span>&nbsp;/&nbsp;</span>
             <label for="data.traits.{{key}}.rightAmount" class="resource-label rollable flexlarge align-left" data-righttrait="{{key}}" data-label="{{traitPair.rightName}}">{{traitpair.rightLabel}}</label>
             <input type="text" name="data.traits.{{key}}.rightAmount" value="{{traitpair.rightAmount}}" data-dtype="Number"/>
-            <input type="checkbox" name="data.traits.{{key}}.rightAdvance" value="{{traitpair.rightAdvance}}" data-dtype="Boolean"/>
+            <input name="data.traits.{{key}}.rightAdvance" type="checkbox" {{checked traitpair.rightAdvance}}/>
           </div>
           {{/each}}
         </div>

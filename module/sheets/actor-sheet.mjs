@@ -231,5 +231,4 @@ export class pendragonActorSheet extends ActorSheet {
         roll: {blindroll: false},
       }});
   }
-
 }

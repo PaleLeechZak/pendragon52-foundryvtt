@@ -4,10 +4,9 @@
  */
 export class pendragonActor extends Actor {
   //TODO: ADDON: Introduce Lady & Creature sheets
-  //TODO: CORE: Implement Initiative
   //TODO: CORE: Implement Winter-phase dialog
   //TODO: ADDON: Implement Battle dialog
-  //TODO: CORE: Fix Trait rolling, currently a target is not set.
+  //TODO: CORE: Add custom skill dialog, + button by headers?
 
   /** @override */
   prepareData() {

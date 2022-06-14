@@ -25,13 +25,9 @@ Hooks.once('init', async function() {
   // Add custom constants for configuration.
   CONFIG.PENDRAGON52 = PENDRAGON52;
 
-  /**
-   * Set an initiative formula for the system
-   * @type {String}
-   */
   CONFIG.Combat.initiative = {
-    formula: "1d20 + @abilities.dex.mod",
-    decimals: 2
+    formula: "@initiative.value",
+    decimals: 2,
   };
 
   // Define custom Document classes

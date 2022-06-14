@@ -110,12 +110,14 @@
             "play": {
               "type": "",
               "value": 0,
-              "advancement": false
+              "advancement": false,
+              "hasType": true
             },
             "read": {
               "type": "",
               "value": 0,
-              "advancement": false
+              "advancement": false,
+              "hasType": true
             },
             "recognize": {
               "value": 0,
@@ -150,69 +152,69 @@
         },
         "traits": {
           "chaste_lustful": {
-            "leftName": "chaste","leftAmount": 10, "leftAdvance":  false,
+            "leftName": "chaste","leftAmount": 10, "leftAdvance": false,
             "rightName": "lustful", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "energetic_lazy": {
             "leftName": "energetic","leftAmount": 10, "leftAdvance": false,
             "rightName": "lazy", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "forgiving_vengeful": {
             "leftName": "forgiving","leftAmount": 10, "leftAdvance": false,
             "rightName": "vengeful", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "generous_selfish": {
             "leftName": "generous","leftAmount": 10, "leftAdvance": false,
             "rightName": "selfish", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "honest_deceitful": {
             "leftName": "honest","leftAmount": 10, "leftAdvance": false,
             "rightName": "deceitful", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "just_arbitrary": {
             "leftName": "just","leftAmount": 10, "leftAdvance": false,
             "rightName": "arbitrary", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "merciful_cruel": {
             "leftName": "merciful","leftAmount": 10, "leftAdvance": false,
             "rightName": "cruel", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "modest_proud": {
             "leftName": "modest","leftAmount": 10, "leftAdvance": false,
             "rightName": "proud", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "prudent_reckless": {
             "leftName": "prudent","leftAmount": 10, "leftAdvance": false,
             "rightName": "reckless", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "spiritual_worldly": {
             "leftName": "spiritual","leftAmount": 10, "leftAdvance": false,
             "rightName": "worldly", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "temperate_indulgent": {
             "leftName": "temperate","leftAmount": 10, "leftAdvance": false,
             "rightName": "indulgent", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "trusting_suspicious": {
             "leftName": "trusting","leftAmount": 10, "leftAdvance": false,
             "rightName": "suspicious", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           },
           "valorous_cowardly": {
             "leftName": "valorous","leftAmount": 10, "leftAdvance": false,
             "rightName": "cowardly", "rightAmount": 10, "rightAdvance": false,
-            "balance":  20, "excepted": false
+            "balance":  20, "excepted": 0
           }
         },
         "directed_traits": {}
