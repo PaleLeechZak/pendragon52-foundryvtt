@@ -8,6 +8,7 @@ import { pendragonItemSheet } from "./sheets/item-sheet.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { PENDRAGON52 } from "./helpers/config.mjs";
 import * as chat from "./chat.js";
+import {PendragonCombat} from "./combat.js";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -71,3 +72,7 @@ Hooks.once("ready", async function() {
 });
 
 Hooks.on("renderChatMessage", chat.addChatMessageButtons);
+Hooks.on("renderCombatTracker", PendragonCombat.format);
+
+Hooks.on("preCreateCombatant", PendragonCombat.createCombatant);
+Hooks.on("preUpdateCombatant", PendragonCombat.updateCombatant);

@@ -6,7 +6,6 @@ export class pendragonActor extends Actor {
   //TODO: ADDON: Introduce Lady & Creature sheets
   //TODO: CORE: Implement Winter-phase dialog
   //TODO: ADDON: Implement Battle dialog
-  //TODO: CORE: Add custom skill dialog, + button by headers?
 
   /** @override */
   prepareData() {
@@ -82,6 +81,11 @@ export class pendragonActor extends Actor {
     return data;
   }
 
+  getSpeed() {
+    console.log(this.data);
+    return (this.data.data.statistics.strength + this.data.data.statistics.dexterity) / 10.0;
+  }
+
   _getKnightRollData(data) {
     if (this.data.type !== 'knight') return;
   }
@@ -92,9 +96,5 @@ export class pendragonActor extends Actor {
 
   _getCreatureRollData(data) {
     if (this.data.type !== 'creature') return;
-  }
-
-  async rollInitiative() {
-
   }
 }

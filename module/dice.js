@@ -1,6 +1,7 @@
 export class PendragonDice {
     static digestResult(data, roll) {
         let result = {
+            type: roll.data.type,
             isSuccess: false,
             isFailure: false,
             isCritical: false,

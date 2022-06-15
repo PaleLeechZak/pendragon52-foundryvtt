@@ -71,16 +71,19 @@ export class pendragonActorSheet extends ActorSheet {
 
     // Handle localization cache for combat skills.
     for (let [k, v] of Object.entries(context.data.skills.combat)) {
+      if(v === null) continue;
       v.label = game.i18n.localize(CONFIG.PENDRAGON52.combatSkills[k]) ?? k;
     }
 
     // Handle localization cache for other skills.
     for (let [k, v] of Object.entries(context.data.skills.others)) {
+      if(v === null) continue;
       v.label = game.i18n.localize(CONFIG.PENDRAGON52.otherSkills[k]) ?? k;
     }
 
     // Handle localization cache for traits.
     for (let [k, v] of Object.entries(context.data.traits)) {
+      if(v === null) continue;
       v.leftLabel = game.i18n.localize(CONFIG.PENDRAGON52.traits[v.leftName]) ?? k;
       v.rightLabel = game.i18n.localize(CONFIG.PENDRAGON52.traits[v.rightName]) ?? k;
     }
@@ -141,6 +144,9 @@ export class pendragonActorSheet extends ActorSheet {
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
 
+    html.find('.skill-create').click(this._onAddSkill.bind(this));
+    html.find('.skill-delete').click(this._onDeleteSkill.bind(this));
+
     // Drag events for macros.
     if (this.actor.owner) {
       let handler = ev => this._onDragStart(ev);
@@ -189,24 +195,84 @@ export class pendragonActorSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
+    console.log('Rolling?', dataset);
     if(dataset['stat'] !== undefined) {
-      console.log(dataset['stat']);
       this.RollCheck(this.actor.data.data.statistics[dataset['stat']].value);
     } else if(dataset['combatskill'] !== undefined) {
-      console.log(dataset['combatskill']);
       this.RollCheck(this.actor.data.data.skills.combat[dataset['combatskill']].value);
     } else if(dataset['otherskill'] !== undefined) {
-      console.log(dataset['otherskill']);
       this.RollCheck(this.actor.data.data.skills.others[dataset['otherskill']].value);
     } else if(dataset['lefttrait']) {
-      console.log(dataset['lefttrait']);
       this.RollCheck(this.actor.data.data.traits[dataset['lefttrait']].leftAmount);
     } else if(dataset['righttrait']) {
-      console.log(dataset['righttrait']);
       this.RollCheck(this.actor.data.data.traits[dataset['righttrait']].rightAmount);
+    } else if(dataset['damagedice']) {
+      this.RollDamage(dataset['damagedice']);
     } else {
     //  ?????
     }
+  }
+
+  _onDeleteSkill(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    if(dataset['deletecombatskill'] !== undefined){
+      console.log(dataset['skill'], this.actor.data.data);
+
+      let updateData = {};
+      updateData[`data.skills.combat.${dataset['skill']}`] = null;
+      if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData).then(() => { console.log('Done?') });
+    } else if(dataset['deletenoncombatskill'] !== undefined){
+      console.log(dataset['skill'], this.actor.data.data);
+
+      let updateData = {};
+      updateData[`data.skills.others.${dataset['skill']}`] = null;
+      if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData).then(() => { console.log('Done?') });
+    }
+  }
+
+  _onAddSkill(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    console.log('Test...', dataset);
+
+    if(dataset['addcombatskill'] !== undefined){
+      let updateData = {};
+      updateData[`data.skills.combat.skill_${Object.entries(this.actor.data.data.skills.combat).length + 1}`] = {
+        value: 0,
+        type: '',
+        name: '',
+        custom: true,
+        advancement: false
+      }
+      if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData).then(() => { console.log('Done?') });
+    } else if(dataset['addnoncombatskill'] !== undefined){
+      let updateData = {};
+      updateData[`data.skills.others.skill_${Object.entries(this.actor.data.data.skills.others).length + 1}`] = {
+        value: 0,
+        type: '',
+        name: '',
+        custom: true,
+        advancement: false
+      }
+      if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData).then(() => { console.log('Done?') });
+    }
+  }
+
+  RollDamage(amount) {
+    PendragonDice.Roll({
+      parts: [amount + "d6"],
+      speaker: {actor: this.actor.id},
+      data:{
+        type: "straight",
+        target: 0,
+        roll: {blindroll: false},
+      }
+    });
   }
 
   RollCheck(target) {

@@ -26,7 +26,7 @@
           <input class="resource-content" type="text" name="data.glory.value" value="{{data.glory.value}}" data-dtype="Number"/>
         </div>
         <div class="flexcol">
-          <label for="data.damage.value" class="resource-label">Damage <i class="fas fa-dice"></i> </label>
+          <label for="data.damage.value" class="resource-label rollable" data-damageDice="{{data.damage.value}}">Damage <i class="fas fa-dice"></i> </label>
           <input class="resource-content" type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="Number"/>
         </div>
       </div>
@@ -47,7 +47,7 @@
 
     {{!-- Statistics Tab --}}
     <div class="tab statistics" data-group="primary" data-tab="statistics">
-      <section class="grid grid-span-2">
+      <section class="">
         <div class="statistics flexcol">
           {{#each data.statistics as |stat key|}}
           <div class="statistic flexrow flex-group-center">
@@ -67,35 +67,67 @@
 
     {{!-- Skills Tab --}}
     <div class="tab skills" data-group="primary" data-tab="skills">
-      <section class="grid grid-span-2">
+      <section class="">
         <div class="skills flexcol">
+          <h3>Combat Skills</h3>
           {{#each data.skills.combat as |skill key|}}
+          {{#skill}}
           <div class="skill flexrow flex-group-center">
+            {{#unless skill.custom}}
             <label for="data.skills.combat.{{key}}.value" class="resource-label rollable flexlarge align-left" data-combatskill="{{key}}" data-label="{{skill.label}}">{{skill.label}}</label>
+            {{/unless}}
+            {{#if skill.custom}}
+            <i class="rollable flexlarge align-left fas fa-dice" data-combatskill="{{key}}"></i>
+            <input class="resource-label" type="text" name="data.skills.combat.{{key}}.name" value="{{skill.name}}" data-dtype="String"/>
+            {{/if}}
             <input type="text" name="data.skills.combat.{{key}}.value" value="{{skill.value}}" data-dtype="Number"/>
             {{#if skill.hasType}}<input type="text" name="data.skills.combat.{{key}}.type" value="{{skill.type}}" data-dtype="String"/>{{/if}}
             <input type="checkbox" name="data.skills.combat.{{key}}.advancement" {{checked skill.advancement}}/>
+            {{#if skill.custom}}
+            <i class="skill-delete fas fa-trash" data-deletecombatskill data-skill="{{key}}"></i>
+            {{/if}}
           </div>
+          {{/skill}}
           {{/each}}
+          <a class="">
+            {{localize Pendragon.AddSkill}}
+            <i class="skill-create fas fa-plus" data-addcombatskill></i>
+          </a>
         </div>
       </section>
-      <section class="grid grid-span-2">
+      <section class="">
         <div class="skills flexcol">
+          <h3>Non-Combat Skills</h3>
           {{#each data.skills.others as |skill key|}}
+          {{#skill}}
           <div class="skill flexrow flex-group-center">
+            {{#unless skill.custom}}
             <label for="data.skills.others.{{key}}.value" class="resource-label rollable flexlarge align-left" data-otherskill="{{key}}" data-label="{{skill.label}}">{{skill.label}}</label>
+            {{/unless}}
+            {{#if skill.custom}}
+            <i class="rollable flexlarge align-left fas fa-dice" data-otherskill="{{key}}"></i>
+            <input class="resource-label" type="text" name="data.skills.others.{{key}}.name" value="{{skill.name}}" data-dtype="String"/>
+            {{/if}}
             <input type="text" name="data.skills.others.{{key}}.value" value="{{skill.value}}" data-dtype="Number"/>
             {{#if skill.hasType}}<input type="text" name="data.skills.others.{{key}}.type" value="{{skill.type}}" data-dtype="String"/>{{/if}}
             <input type="checkbox" name="data.skills.others.{{key}}.advancement" {{checked skill.advancement}}/>
+            {{#if skill.custom}}
+            <i class="skill-delete fas fa-trash" data-deletenoncombatskill data-skill="{{key}}"></i>
+            {{/if}}
           </div>
+          {{/skill}}
           {{/each}}
+          <a class="">
+            {{localize Pendragon.AddSkill}}
+            <i class="skill-create fas fa-plus" data-addnoncombatskill></i>
+          </a>
         </div>
       </section>
     </div>
 
     {{!-- Traits Tab --}}
     <div class="tab traits" data-group="primary" data-tab="traits">
-      <section class="grid grid-span-2">
+      <section class="">
         <div class="traits flexcol">
           {{#each data.traits as |traitpair key|}}
           <div class="trait flexrow flex-group-center">
