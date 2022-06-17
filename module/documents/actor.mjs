@@ -2,7 +2,7 @@
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
  */
-export class pendragonActor extends Actor {
+export class PendragonActor extends Actor {
   //TODO: ADDON: Introduce Lady & Creature sheets
   //TODO: CORE: Implement Winter-phase dialog
   //TODO: ADDON: Implement Battle dialog
@@ -38,6 +38,12 @@ export class pendragonActor extends Actor {
 
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
+
+    data.initiative = PendragonActor.getSpeed(this);
+    data.initiative_tiebreaker = data.statistics.dexterity / 10;
+
+    console.log(this.data.data.initiative);
+
     this._prepareKnightData(actorData);
     this._prepareLadyData(actorData);
     this._prepareCreatureData(actorData);
@@ -81,9 +87,8 @@ export class pendragonActor extends Actor {
     return data;
   }
 
-  getSpeed() {
-    console.log(this.data);
-    return (this.data.data.statistics.strength + this.data.data.statistics.dexterity) / 10.0;
+  static getSpeed(actor) {
+    return (actor.data.data.statistics.strength.value + actor.data.data.statistics.dexterity.value) / 10.0;
   }
 
   _getKnightRollData(data) {
@@ -97,4 +102,11 @@ export class pendragonActor extends Actor {
   _getCreatureRollData(data) {
     if (this.data.type !== 'creature') return;
   }
+
+  // _onUpdate(changed, options, userId) {
+  //   super._onUpdate(changed, options, userId);
+  //
+  //   this.data.data.initiative = PendragonActor.getSpeed(this);
+  //   console.log(this.data.data.initiative);
+  // }
 }

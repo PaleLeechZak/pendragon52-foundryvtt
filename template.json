@@ -8,6 +8,8 @@
           "min": 0,
           "max": 15
         },
+        "initiative": 0,
+        "initiative_tiebreaker": 0,
         "glory": 0,
         "age": 21,
         "damage": 1,

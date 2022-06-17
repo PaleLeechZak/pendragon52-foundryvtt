@@ -1,5 +1,5 @@
 // Import document classes.
-import { pendragonActor } from "./documents/actor.mjs";
+import { PendragonActor } from "./documents/actor.mjs";
 import { pendragonItem } from "./documents/item.mjs";
 // Import sheet classes.
 import { pendragonActorSheet } from "./sheets/actor-sheet.mjs";
@@ -8,7 +8,6 @@ import { pendragonItemSheet } from "./sheets/item-sheet.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { PENDRAGON52 } from "./helpers/config.mjs";
 import * as chat from "./chat.js";
-import {PendragonCombat} from "./combat.js";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -19,7 +18,7 @@ Hooks.once('init', async function() {
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.pendragon52 = {
-    pendragonActor,
+    pendragonActor: PendragonActor,
     pendragonItem
   };
 
@@ -27,12 +26,12 @@ Hooks.once('init', async function() {
   CONFIG.PENDRAGON52 = PENDRAGON52;
 
   CONFIG.Combat.initiative = {
-    formula: "@initiative.value",
+    formula: "@initiative + (@statistics.dexterity.value / 10)",
     decimals: 2,
   };
 
   // Define custom Document classes
-  CONFIG.Actor.documentClass = pendragonActor;
+  CONFIG.Actor.documentClass = PendragonActor;
   CONFIG.Item.documentClass = pendragonItem;
 
   // Register sheet application classes
@@ -72,7 +71,3 @@ Hooks.once("ready", async function() {
 });
 
 Hooks.on("renderChatMessage", chat.addChatMessageButtons);
-Hooks.on("renderCombatTracker", PendragonCombat.format);
-
-Hooks.on("preCreateCombatant", PendragonCombat.createCombatant);
-Hooks.on("preUpdateCombatant", PendragonCombat.updateCombatant);
