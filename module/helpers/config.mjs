@@ -93,3 +93,9 @@ PENDRAGON52.traits = {
     "valorous" : "PENDRAGON52.TraitsValorous",
     "cowardly" : "PENDRAGON52.TraitsCowardly"
 };
+
+PENDRAGON52.gloryRewards = {};
+
+PENDRAGON52.funds = {};
+
+PENDRAGON52.gear_sets = {};

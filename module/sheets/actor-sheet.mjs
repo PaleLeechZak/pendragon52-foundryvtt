@@ -87,6 +87,23 @@ export class pendragonActorSheet extends ActorSheet {
       v.leftLabel = game.i18n.localize(CONFIG.PENDRAGON52.traits[v.leftName]) ?? k;
       v.rightLabel = game.i18n.localize(CONFIG.PENDRAGON52.traits[v.rightName]) ?? k;
     }
+
+    for (let [k, v] of Object.entries(context.data.gloryRewards)) {
+      if(v === null) continue;
+      v.label = game.i18n.localize(CONFIG.PENDRAGON52.gloryRewards[k]) ?? k;
+    }
+
+    for (let [k, v] of Object.entries(context.data.equipment.funds)) {
+      if(v === null) continue;
+      v.label = game.i18n.localize(CONFIG.PENDRAGON52.funds[k]) ?? k;
+    }
+
+    for (let [k, v] of Object.entries(context.data.equipment.gear_sets)) {
+      if(v === null) continue;
+      v.label = game.i18n.localize(CONFIG.PENDRAGON52.gear_sets[k]) ?? k;
+    }
+
+
   }
 
   /**
@@ -146,6 +163,10 @@ export class pendragonActorSheet extends ActorSheet {
 
     html.find('.skill-create').click(this._onAddSkill.bind(this));
     html.find('.skill-delete').click(this._onDeleteSkill.bind(this));
+    html.find('.history-create').click(this._onAddHistory.bind(this));
+    html.find('.history-delete').click(this._onDeleteHistory.bind(this));
+    html.find('.holdings-create').click(this._onAddHolding.bind(this));
+    html.find('.holdings-delete').click(this._onDeleteHolding.bind(this));
 
     // Drag events for macros.
     if (this.actor.owner) {
@@ -156,6 +177,60 @@ export class pendragonActorSheet extends ActorSheet {
         li.addEventListener("dragstart", handler, false);
       });
     }
+  }
+
+  _onAddHistory(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    console.log(dataset);
+
+    let updateData = {};
+    updateData[`data.history.history_${Object.entries(this.actor.data.data.history).length + 1}`] = {
+      "year": 0,
+      "description": "",
+      "glory": 0
+    };
+    if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
+  }
+
+  _onDeleteHistory(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    console.log(dataset);
+
+    let updateData = {};
+    updateData[`data.history.${dataset.history}`] = null;
+    if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
+  }
+
+  _onAddHolding(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    console.log(dataset);
+
+    let updateData = {};
+    updateData[`data.holdings.holding_${Object.entries(this.actor.data.data.holdings).length + 1}`] = {
+      "name": "",
+      "glory": 0
+    };
+    if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
+  }
+
+  _onDeleteHolding(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    console.log(dataset);
+    let updateData = {};
+    updateData[`data.holdings.${dataset.holding}`] = null;
+    if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
   }
 
   /**
@@ -219,17 +294,13 @@ export class pendragonActorSheet extends ActorSheet {
     const dataset = element.dataset;
 
     if(dataset['deletecombatskill'] !== undefined){
-      console.log(dataset['skill'], this.actor.data.data);
-
       let updateData = {};
       updateData[`data.skills.combat.${dataset['skill']}`] = null;
-      if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData).then(() => { console.log('Done?') });
+      if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
     } else if(dataset['deletenoncombatskill'] !== undefined){
-      console.log(dataset['skill'], this.actor.data.data);
-
       let updateData = {};
       updateData[`data.skills.others.${dataset['skill']}`] = null;
-      if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData).then(() => { console.log('Done?') });
+      if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
     }
   }
 

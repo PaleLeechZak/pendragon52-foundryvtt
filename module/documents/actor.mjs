@@ -39,14 +39,78 @@ export class PendragonActor extends Actor {
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
 
-    data.initiative = PendragonActor.getSpeed(this);
-    data.initiative_tiebreaker = data.statistics.dexterity / 10;
-
-    console.log(this.data.data.initiative);
-
     this._prepareKnightData(actorData);
     this._prepareLadyData(actorData);
     this._prepareCreatureData(actorData);
+
+    this._processDerrivatives(actorData);
+
+    console.log(data.history, data.holdings, data.skills);
+    this.pruneSkills(data);
+    this.pruneHoldings(data);
+    this.pruneHistory(data);
+  }
+
+  pruneSkills(data) {
+    for(var otherSkill in data.skills.others)
+    {
+      if(data.skills.others[otherSkill] == null){
+        delete data.skills.others[otherSkill];
+      }
+    }
+
+    for(var combatSkill in data.skills.combat)
+    {
+      if(data.skills.combat[otherSkill] == null){
+        delete data.skills.combat[otherSkill];
+      }
+    }
+  }
+
+  pruneHoldings(data) {
+    for(var holding in data.holdings)
+    {
+      if(data.holdings[holding] == null)
+      {
+        delete data.holdings[holding];
+      }
+    }
+  }
+
+  pruneHistory(data) {
+    for(var history in data.history)
+    {
+      if(data.history[history] == null)
+      {
+        delete data.history[history];
+      }
+    }
+  }
+
+  _processDerrivatives(actorData) {
+    const data = actorData.data;
+
+    data.damage = Math.max(1, Math.round( (data.statistics.strength.value + data.statistics.size.value) / 6 ));
+
+    if(!data.healing_rate)
+    {
+      data.healing_rate = {};
+    }
+
+    data.healing_rate.value = Math.max(1, Math.round( (data.statistics.strength.value + data.statistics.constitution.value) / 10 ));
+
+    if(!data.move_rate)
+    {
+      data.move_rate = {};
+    }
+    data.move_rate.value = Math.max(1, Math.round( (data.statistics.strength.value + data.statistics.dexterity.value) / 10 ));
+
+    data.hitPoints.max = (data.statistics.size.value + data.statistics.constitution.value)
+    data.unconcious = Math.round(data.hitPoints.max / 4);
+
+    data.initiative = data.move_rate.value;
+    data.initiative_tiebreaker = data.statistics.dexterity.value / 10;
+    data.composite_initiative = data.initiative + data.initiative_tiebreaker;
   }
 
   /**

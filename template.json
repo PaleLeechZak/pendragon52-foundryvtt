@@ -20,6 +20,105 @@
         "currentClass": "",
         "currentHome": "",
         "distinctiveFeatures": "",
+        "gloryRewards": {
+          "religion": {
+            "value": 0
+          },
+          "chivalry": {
+            "value": 0
+          },
+          "passions": {
+            "value": 0
+          },
+          "traits": {
+            "value": 0
+          },
+          "castles": {
+            "value": 0
+          },
+          "holdings": {
+            "value": 0
+          },
+          "treasure": {
+            "value": 0
+          },
+          "maintenanceGrade": {
+            "value": 0
+          },
+          "total": {
+            "value": 0
+          }
+        },
+        "joustRecord": {
+          "wins": 0,
+          "losses": 0
+        },
+        "holdings": [],
+        "holdingsValue": 0,
+        "equipment": {
+          "funds": {
+            "libra": {
+              "value": 0
+            },
+            "shillings": {
+              "value": 0
+            },
+            "denarii": {
+              "value": 0
+            }
+          },
+          "gear_sets": {
+            "war_gear": {
+              "description": "",
+              "horse": 0
+            },
+            "personal_gear": {
+              "description": "",
+              "horse": 0
+            },
+            "travel_gear": {
+              "description": "",
+              "horse": 0
+            }
+          },
+          "clothing": {
+            "type": "",
+            "value": 0
+          },
+          "possessions_at_home": ""
+        },
+        "history": [],
+        "army": {
+          "old_knights": 0,
+          "mid_knights": 0,
+          "young_knights": 0,
+          "total_family_knights": 0,
+          "lineage_men": 0,
+          "levy": 0
+        },
+        "household": {
+          "current_year": 480,
+          "born": 469,
+          "squired": 474,
+          "knighted": 480,
+          "round_table": 0,
+          "landed": 0,
+          "ennobled": 0,
+          "wed": 0,
+          "died": 0,
+          "fathers_name": "",
+          "class": "",
+          "sons_glory": 0,
+          "family_wealth": 0,
+          "family_characteristic": {
+            "skill": "",
+            "bonus": 0
+          },
+          "wife": "",
+          "lover": "",
+          "children": "",
+          "will": ""
+        },
         "statistics": {
           "size": {
             "value": 8
@@ -219,7 +318,32 @@
             "balance":  20, "excepted": 0
           }
         },
-        "directed_traits": {}
+        "directed_traits": {},
+        "passions": {
+          "fealty": {
+            "type": "Lord",
+            "value": 0,
+            "advancement": false
+          },
+          "homage": {
+            "type": "Liege",
+            "value": 0,
+            "advancement": false
+          },
+          "love": {
+            "type": "Family",
+            "value": 0,
+            "advancement": false
+          },
+          "hospitality": {
+            "value": 0,
+            "advancement": false
+          },
+          "honor": {
+            "value": 0,
+            "advancement": false
+          }
+        }
       }
     },
     "knight": {

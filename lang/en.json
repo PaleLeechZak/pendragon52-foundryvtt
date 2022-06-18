@@ -18,6 +18,19 @@
   "Pendragon.Roll.Roll": "Roll",
   "Pendragon.Roll.Cancel": "Cancel",
 
+  "Pendragon.Equipment.Label": "Equipment",
+  "Pendragon.Equipment.Money": "Money",
+
+  "Pendragon.Holdings.Label": "Holdings",
+  "Pendragon.GloryAwards.Label": "Glory Awards",
+
+  "Pendragon.AddSkill": "Add Skill",
+
+  "Pendragon.Joust.Wins": "Wins",
+  "Pendragon.Joust.Losses": "Losses",
+
+  "Pendragon.GearSets.HorseNumber": "On Horse: ",
+
   "PENDRAGON52.StatisticsSize": "Size",
   "PENDRAGON52.StatisticsSizeAbb": "SIZ",
   "PENDRAGON52.StatisticsDexterity": "Dexterity",
