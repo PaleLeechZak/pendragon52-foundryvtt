@@ -61,6 +61,11 @@ export class PendragonActor extends Actor {
       data.army.vassal_knights = 0
     }
 
+    if(data["skills"] && data["skills"]["others"])
+    {
+      data.skills.others.religion.hasType = true;
+    }
+
     if(data["followers"] === undefined) {
       data.followers = {
         squire: {

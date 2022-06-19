@@ -253,7 +253,8 @@
             "religion": {
               "type": "",
               "value": 0,
-              "advancement": false
+              "advancement": false,
+              "hasType": true
             },
             "romance": {
               "value": 0,
