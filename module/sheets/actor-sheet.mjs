@@ -170,6 +170,8 @@ export class pendragonActorSheet extends ActorSheet {
     html.find('.holdings-delete').click(this._onDeleteHolding.bind(this));
     html.find('.horse-create').click(this._onAddHorse.bind(this));
     html.find('.horse-delete').click(this._onDeleteHorse.bind(this));
+    html.find('.passion-create').click(this._onAddPassion.bind(this));
+    html.find('.passion-delete').click(this._onDeletePassion.bind(this));
 
     // Drag events for macros.
     if (this.actor.owner) {
@@ -265,11 +267,11 @@ export class pendragonActorSheet extends ActorSheet {
     const dataset = element.dataset;
 
     let updateData = {};
-    updateData[`data.passions.${Object.entries(this.data.data.passions).length}`] = {value: 0, name: "", type: ""}
+    updateData[`data.passions.passion_${Object.entries(this.actor.data.data.passions).length}`] = {value: 0, name: "", type: "", custom: true}
     if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
   }
 
-  _onRemovePassion(event) {
+  _onDeletePassion(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
@@ -313,6 +315,7 @@ export class pendragonActorSheet extends ActorSheet {
    * @private
    */
   _onRoll(event) {
+    //TODO: Refactor reasons to use pre-localized label fields
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
@@ -340,8 +343,8 @@ export class pendragonActorSheet extends ActorSheet {
       } else {
         this.RollCheck(this.actor.data.data.followers.squire[dataset['squireskill']], 'Squire Skill ' + dataset['squireskill']);
       }
-    } else {
-
+    } else if(dataset['passion']) {
+      this.RollCheck(this.actor.data.data.passions[dataset['passion']].value, dataset['passion']);
     }
   }
 

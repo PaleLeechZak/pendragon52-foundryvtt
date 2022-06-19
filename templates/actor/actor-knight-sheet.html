@@ -225,13 +225,44 @@
 
     {{!-- Passions Tab --}}
     <div class="tab passions" data-group="primary" data-tab="passions">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Value</th>
+          <th></th>
+        </tr>
       {{#each data.passions as |passion key|}}
-        <label for="data.passions.{{key}}.value" class="resource-label rollable" data-passion="{{key}}">{{passion.label}}</label>
-      <input name="data.passions.{{key}}.value" value="{{passion.value}}" class="resource-content" type="text" data-dtype="Number">
-      {{#passion.type}}
-      <input name="data.passions.{{key}}.type" value="{{passion.type}}" class="resource-content" type="text" data-dtype="String">
-      {{/passion.type}}
+        <tr>
+          <td>
+            <i class="fas fa-dice rollable" data-passion="{{key}}"></i>
+            {{#if passion.custom}}
+              <input name="data.passions.{{key}}.name" value="{{passion.name}}" type="text" data-dtype="String" >
+            {{else}}
+              <label for="data.passions.{{key}}.value" class="resource-label rollable" data-passion="{{key}}">{{passion.label}}</label>
+            {{/if}}
+          </td>
+
+          <td>
+          <input name="data.passions.{{key}}.value" value="{{passion.value}}" class="resource-content" type="text" data-dtype="Number">
+          </td>
+
+          <td>
+            {{#passion.type}}
+            <input name="data.passions.{{key}}.type" value="{{passion.type}}" class="resource-content" type="text" data-dtype="String">
+            {{/passion.type}}
+          </td>
+
+          <td>
+            {{#passion.custom}}
+            <a class="passion-delete"><i class="fas fa-trash"></i></a>
+            {{/passion.custom}}
+          </td>
+        </tr>
       {{/each}}
+
+      </table>
+      <a class="passion-create"><i class="fas fa-plus"></i></a>
     </div>
 
     {{!-- Household Tab --}}
