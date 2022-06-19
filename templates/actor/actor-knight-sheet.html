@@ -504,7 +504,6 @@
           </tr>
         {{#each data.followers.ridingHorses as |horse key|}}
           {{#horse}}
-          {{key}}
           <tr>
             <td>
               <input data-dtype="String" type="text" name="data.followers.ridingHorses.{{key}}.name" value="{{horse.name}}"/>
