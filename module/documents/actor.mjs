@@ -3,9 +3,10 @@
  * @extends {Actor}
  */
 export class PendragonActor extends Actor {
-  //TODO: ADDON: Introduce Lady & Creature sheets
-  //TODO: CORE: Implement Winter-phase dialog
-  //TODO: ADDON: Implement Battle dialog
+  // TODO: ADDON: Introduce Lady & Creature sheets
+  // TODO: ADDON: Implement Battle dialog
+  // TODO: ADDON: Implement Winter-phase dialog
+  // TODO: CORE: Refactor dice class, rolls should apply bonus to target
 
   /** @override */
   prepareData() {
@@ -39,36 +40,103 @@ export class PendragonActor extends Actor {
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
 
+    this.migrate(actorData);
+
     this._prepareKnightData(actorData);
     this._prepareLadyData(actorData);
     this._prepareCreatureData(actorData);
 
     this._processDerrivatives(actorData);
 
-    console.log(data.history, data.holdings, data.skills);
+    this.prunePassions(data);
     this.pruneSkills(data);
     this.pruneHoldings(data);
     this.pruneHistory(data);
   }
 
+  migrate(data) {
+    if(data["army"] && data.army["vassal_knights"] === undefined) {
+      data.army.vassal_knights = 0
+    }
+
+    if(data["followers"] === undefined) {
+      data.followers = {
+        squire: {
+          name: "",
+          age: 15,
+          first_aid: 0,
+          battle: 0,
+          horsemanship: 0,
+          otherSkill: {name: "", value: 0}
+        },
+        warhorse: {
+          name: "",
+          damage: 1,
+          move: 0,
+          armor: 0,
+          hp: 1,
+          size: 10,
+          constitution: 10,
+          dexterity: 10
+        },
+        ridingHorses: {},
+      }
+
+    }
+
+    for(let traitName in data.traits) {
+      if(data.traits[traitName].leftReligious === undefined)
+      {
+        data.traits[traitName].leftReligious = false;
+        data.traits[traitName].rightReligious = false;
+      }
+    }
+  }
+
+  hasReligiousBonus(data) {
+    let count = 0;
+    for(let traitName in data.traits)
+    {
+      if(data.traits[traitName].leftValue >= 16 && data.traits[traitName].leftReligious) {
+        count++;
+      }
+      else if(data.traits[traitName].rightValue >= 16 && data.traits[traitName].rightReligious)
+      {
+        count++;
+      }
+    }
+
+    return count === 5;
+  }
+
+  prunePassions(data) {
+    for(const passion in data.passions)
+    {
+      if(data.passions[passion] == null)
+      {
+        delete data.passions[passion];
+      }
+    }
+  }
+
   pruneSkills(data) {
-    for(var otherSkill in data.skills.others)
+    for(const otherSkill in data.skills.others)
     {
       if(data.skills.others[otherSkill] == null){
         delete data.skills.others[otherSkill];
       }
     }
 
-    for(var combatSkill in data.skills.combat)
+    for(const combatSkill in data.skills.combat)
     {
-      if(data.skills.combat[otherSkill] == null){
-        delete data.skills.combat[otherSkill];
+      if(data.skills.combat[combatSkill] == null){
+        delete data.skills.combat[combatSkill];
       }
     }
   }
 
   pruneHoldings(data) {
-    for(var holding in data.holdings)
+    for(const holding in data.holdings)
     {
       if(data.holdings[holding] == null)
       {
@@ -78,7 +146,7 @@ export class PendragonActor extends Actor {
   }
 
   pruneHistory(data) {
-    for(var history in data.history)
+    for(const history in data.history)
     {
       if(data.history[history] == null)
       {
@@ -97,7 +165,14 @@ export class PendragonActor extends Actor {
       data.healing_rate = {};
     }
 
-    data.healing_rate.value = Math.max(1, Math.round( (data.statistics.strength.value + data.statistics.constitution.value) / 10 ));
+    if(this.hasReligiousBonus(data))
+    {
+      data.healing_rate.value = Math.max(1, Math.round( (data.statistics.strength.value + data.statistics.constitution.value) / 10 )) + 2;
+    }
+    else
+    {
+      data.healing_rate.value = Math.max(1, Math.round( (data.statistics.strength.value + data.statistics.constitution.value) / 10 ));
+    }
 
     if(!data.move_rate)
     {

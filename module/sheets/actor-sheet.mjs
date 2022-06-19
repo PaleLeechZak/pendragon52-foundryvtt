@@ -1,4 +1,5 @@
 import {PendragonDice} from "../dice.js";
+import {LocalizationUtility} from "../helpers/localization.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -103,7 +104,7 @@ export class pendragonActorSheet extends ActorSheet {
       v.label = game.i18n.localize(CONFIG.PENDRAGON52.gear_sets[k]) ?? k;
     }
 
-
+    LocalizationUtility.massLabel(context.data.passions, CONFIG.PENDRAGON52.passions);
   }
 
   /**
@@ -167,6 +168,8 @@ export class pendragonActorSheet extends ActorSheet {
     html.find('.history-delete').click(this._onDeleteHistory.bind(this));
     html.find('.holdings-create').click(this._onAddHolding.bind(this));
     html.find('.holdings-delete').click(this._onDeleteHolding.bind(this));
+    html.find('.horse-create').click(this._onAddHorse.bind(this));
+    html.find('.horse-delete').click(this._onDeleteHorse.bind(this));
 
     // Drag events for macros.
     if (this.actor.owner) {
@@ -177,6 +180,29 @@ export class pendragonActorSheet extends ActorSheet {
         li.addEventListener("dragstart", handler, false);
       });
     }
+  }
+
+  _onAddHorse(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    let updateData = {};
+    updateData[`data.followers.ridingHorses.horse_${Object.entries(this.actor.data.data.followers.ridingHorses).length + 1}`] = {
+      name: "",
+      move: "",
+    }
+    if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
+  }
+
+  _onDeleteHorse(event){
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    let updateData = {};
+    updateData[`data.followers.ridingHorses.${dataset["horse"]}`] = null;
+    if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
   }
 
   _onAddHistory(event) {
@@ -233,6 +259,27 @@ export class pendragonActorSheet extends ActorSheet {
     if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
   }
 
+  _onAddPassion(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    let updateData = {};
+    updateData[`data.passions.${Object.entries(this.data.data.passions).length}`] = {value: 0, name: "", type: ""}
+    if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
+  }
+
+  _onRemovePassion(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    let updateData = {};
+    updateData[`data.passions.${dataset.passion}`] = null;
+
+    if(this.actor.testUserPermission(game.user, "OWNER")) this.actor.update(updateData);
+  }
+
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
    * @param {Event} event   The originating click event
@@ -272,19 +319,29 @@ export class pendragonActorSheet extends ActorSheet {
 
     console.log('Rolling?', dataset);
     if(dataset['stat'] !== undefined) {
-      this.RollCheck(this.actor.data.data.statistics[dataset['stat']].value);
+      this.RollCheck(this.actor.data.data.statistics[dataset['stat']].value, dataset['stat']);
     } else if(dataset['combatskill'] !== undefined) {
-      this.RollCheck(this.actor.data.data.skills.combat[dataset['combatskill']].value);
+      this.RollCheck(this.actor.data.data.skills.combat[dataset['combatskill']].value, dataset['combatskill']);
     } else if(dataset['otherskill'] !== undefined) {
-      this.RollCheck(this.actor.data.data.skills.others[dataset['otherskill']].value);
+      this.RollCheck(this.actor.data.data.skills.others[dataset['otherskill']].value, dataset['otherskill']);
     } else if(dataset['lefttrait']) {
-      this.RollCheck(this.actor.data.data.traits[dataset['lefttrait']].leftAmount);
+      this.RollCheck(this.actor.data.data.traits[dataset['lefttrait']].leftAmount, dataset['lefttrait']);
     } else if(dataset['righttrait']) {
-      this.RollCheck(this.actor.data.data.traits[dataset['righttrait']].rightAmount);
+      this.RollCheck(this.actor.data.data.traits[dataset['righttrait']].rightAmount, dataset['righttrait']);
     } else if(dataset['damagedice']) {
-      this.RollDamage(dataset['damagedice']);
+      this.RollDamage(dataset['damagedice'], 'Damage');
+    } else if(dataset['warhorse']){
+      this.RollCheck(this.actor.data.data.followers.warhorse[dataset['warhorse']], 'Warhorse ' + dataset['warhorse']);
+    } else if(dataset['warhorse_damage']){
+      this.RollDamage(dataset['warhorse_damage'], 'Warhorse Damage');
+    } else if(dataset['squireskill']){
+      if(dataset['squireskill'] === 'otherSkill') {
+        this.RollCheck(this.actor.data.data.followers.squire[dataset['squireskill']].value, 'Squire Skill ' + this.actor.data.data.followers.squire[dataset['squireskill']].name);
+      } else {
+        this.RollCheck(this.actor.data.data.followers.squire[dataset['squireskill']], 'Squire Skill ' + dataset['squireskill']);
+      }
     } else {
-    //  ?????
+
     }
   }
 
@@ -334,7 +391,7 @@ export class pendragonActorSheet extends ActorSheet {
     }
   }
 
-  RollDamage(amount) {
+  RollDamage(amount, reason) {
     PendragonDice.Roll({
       parts: [amount + "d6"],
       speaker: {actor: this.actor.id},
@@ -342,11 +399,13 @@ export class pendragonActorSheet extends ActorSheet {
         type: "straight",
         target: 0,
         roll: {blindroll: false},
+        reason,
       }
     });
   }
 
-  RollCheck(target) {
+  RollCheck(target, reason) {
+    console.log(target, reason);
     PendragonDice.Roll({
       parts: ["1d20"],
       speaker: {actor: this.actor.id},
@@ -355,10 +414,12 @@ export class pendragonActorSheet extends ActorSheet {
 
         target,
         roll: {blindroll: false},
+        reason,
       }});
   }
 
-  RollAdvancement(target) {
+  //TODO: CORE: Implement Winter Phase
+  RollAdvancement(target, reason) {
     PendragonDice.Roll({
       parts: ["1d20"],
       speaker: {actor: this.actor.id},
@@ -366,6 +427,7 @@ export class pendragonActorSheet extends ActorSheet {
         type: "advancement",
         target,
         roll: {blindroll: false},
+        reason,
       }});
   }
 }

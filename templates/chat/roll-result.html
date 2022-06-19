@@ -1,22 +1,38 @@
 <section class="pendragon chat-card">
     <div class="pendragon chat-block">
         <div class="flexrow chat-header">
-            <div class="chat-title"><h2>{{title}}</h2></div>
+            <div class="chat-title"><h2>{{result.reason}}</h2></div>
             {{#if data.item}}
             <div class="chat-img" style="background-image:url('{{data.item.img}}')"></div>
             {{else}}
             <div class="chat-img" style="background-image:url('{{data.actor.img}}')"></div>
             {{/if}}
         </div>
-        <div class="blindable" data-blind="{{data.roll.blindroll}}">
-            {{#if result.total}}<div class="chat-details">{{{result.total}}}</div>{{/if}}
-            {{#if (ne result.type "straight")}}
+        <div class="dice-roll">
+            <div class="dice-result">
+                <div class="dice-formula">Click to display dice...</div>
+                <div class="dice-tooltip">
+                    <section class="tooltip-part">
+                        <ol class="dice-rolls">
+                            {{#each result.dice as |die index|}}
+                            <li class="roll die d20">
+                                {{die}}
+                            </li>
+                            {{/each}}
+                        </ol>
+                    </section>
+                </div>
+                <div class="dice-total">{{{result.total}}}</div>
+<!--                <div class="blindable" data-blind="{{data.roll.blindroll}}">-->
+                {{#if (ne result.type "straight")}}
                 {{#if result.isFailure}}<div class='roll-result roll-failure'><b>{{localize 'Pendragon.Roll.Failure'}}</b> ({{result.target}}) </div>{{/if}}
                 {{#if result.isFumble}}<div class='roll-result roll-fumble'><b>{{localize 'Pendragon.Roll.Fumble'}}</b> ({{result.target}}) </div>{{/if}}
                 {{#if result.isSuccess}}<div class='roll-result roll-success'><b>{{localize 'Pendragon.Roll.Success'}}</b> ({{result.target}}) </div>{{/if}}
                 {{#if result.isCritical}}<div class='roll-result roll-critical'><b>{{localize 'Pendragon.Roll.Critical'}}</b> ({{result.target}}) </div>{{/if}}
                 {{#if rollFGG}}<div>{{{rollFGG}}}</div>{{/if}}
-            {{/if}}
+                {{/if}}
+<!--                </div>-->
+            </div>
         </div>
     </div>
 </section>

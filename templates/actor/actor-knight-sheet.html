@@ -6,8 +6,8 @@
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
       {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-      use both the "grid" and "grid-Ncol" class where "N" can be any number
-      from 1 to 12 and will create that number of columns.  --}}
+      use both the "grid" and "grid-Ncol" class where "N" can be any Number
+      from 1 to 12 and will create that Number of columns.  --}}
       <div class="resources grid grid-3col">
 
         {{!-- "flex-group-center" is also defined in the _grid.scss file
@@ -37,10 +37,12 @@
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
     <a class="item" data-tab="statistics">Statistics</a>
-    <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="description">Biography</a>
     <a class="item" data-tab="skills">Skills</a>
     <a class="item" data-tab="traits">Traits</a>
+    <a class="item" data-tab="passions">Passions</a>
     <a class="item" data-tab="records">Records</a>
+    <a class="item" data-tab="followers">Followers</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -63,6 +65,8 @@
         <span>{{localize 'Pendragon.move_rate'}} {{data.move_rate.value}}</span><br>
         <span>{{localize 'Pendragon.unconcious'}} {{data.unconcious}}</span><br>
         <span>{{localize 'Pendragon.initiative'}} {{data.composite_initiative}}</span><br>
+        <label for="data.wounds">{{localize 'Pendragon.wounds'}}</label>
+        <input type="text" name="data.wounds" value="{{stat.wounds}}" data-dtype="String"/>
       </section>
     </div>
 
@@ -70,6 +74,24 @@
     <div class="tab biography" data-group="primary" data-tab="description">
       {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}}
       {{editor content=data.biography target="data.biography" rollData=rollData button=true owner=owner editable=editable}}
+
+      <label for="data.age">Age</label>
+      <input name="data.age" value="{{data.age}}" type="text" data-dtype="Number">
+
+      <label for="data.homeland">Homeland</label>
+      <input name="data.homeland" value="{{data.homeland}}" type="text" data-dtype="String">
+
+      <label for="data.lord">Lord</label>
+      <input name="data.lord" value="{{data.lord}}" type="text" data-dtype="String">
+
+      <label for="data.currentClass">Current Class</label>
+      <input name="data.currentClass" value="{{data.currentClass}}" type="text" data-dtype="String">
+
+      <label for="data.currentHome">Current Home</label>
+      <input name="data.currentHome" value="{{data.currentHome}}" type="text" data-dtype="String">
+
+      <label for="data.distinctiveFeatures">Distinctive Features</label>
+      <input name="data.distinctiveFeatures" value="{{data.distinctiveFeatures}}" type="text" data-dtype="String">
     </div>
 
     {{!-- Skills Tab --}}
@@ -136,19 +158,80 @@
     <div class="tab traits" data-group="primary" data-tab="traits">
       <section class="">
         <div class="traits flexcol">
+          <table>
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Value
+              </th>
+              <th>
+                <i class="fas fa-check"></i>
+              </th>
+              <th>
+                <i class="fas fa-cross"></i>
+              </th>
+              <th>
+                Name
+              </th>
+              <th>
+                Value
+              </th>
+              <th>
+                <i class="fas fa-check"></i>
+              </th>
+              <th>
+                <i class="fas fa-cross"></i>
+              </th>
+            </tr>
+
           {{#each data.traits as |traitpair key|}}
-          <div class="trait flexrow flex-group-center">
-            <label for="data.traits.{{key}}.leftAmount" class="resource-label rollable flexlarge align-left" data-lefttrait="{{key}}" data-label="{{traitPair.leftName}}">{{traitpair.leftLabel}}</label>
-            <input type="text" name="data.traits.{{key}}.leftAmount" value="{{traitpair.leftAmount}}" data-dtype="Number"/>
-            <input name="data.traits.{{key}}.leftAdvance" type="checkbox" {{checked traitpair.leftAdvance}}/>
-            <span>&nbsp;/&nbsp;</span>
-            <label for="data.traits.{{key}}.rightAmount" class="resource-label rollable flexlarge align-left" data-righttrait="{{key}}" data-label="{{traitPair.rightName}}">{{traitpair.rightLabel}}</label>
-            <input type="text" name="data.traits.{{key}}.rightAmount" value="{{traitpair.rightAmount}}" data-dtype="Number"/>
-            <input name="data.traits.{{key}}.rightAdvance" type="checkbox" {{checked traitpair.rightAdvance}}/>
-          </div>
+            <tr>
+              <div class="trait flexrow flex-group-center">
+                <td>
+                  <label for="data.traits.{{key}}.leftAmount"
+                         class="resource-label rollable flexlarge align-left" data-lefttrait="{{key}}"
+                         data-label="{{traitPair.leftName}}">{{traitpair.leftLabel}}</label>
+                </td>
+                <td>
+                  <input type="text" name="data.traits.{{key}}.leftAmount" value="{{traitpair.leftAmount}}" data-dtype="Number"/>
+                </td>
+                <td>
+                  <input name="data.traits.{{key}}.leftAdvance" type="checkbox" {{checked traitpair.leftAdvance}}/>
+                </td>
+                <td>
+                <input name="data.traits.{{key}}.leftReligious" type="checkbox" {{checked traitpair.leftReligious}}/>
+                </td>
+                <td>
+                <label for="data.traits.{{key}}.rightAmount" class="resource-label rollable flexlarge align-left" data-righttrait="{{key}}" data-label="{{traitPair.rightName}}">{{traitpair.rightLabel}}</label>
+                </td>
+                <td>
+                <input type="text" name="data.traits.{{key}}.rightAmount" value="{{traitpair.rightAmount}}" data-dtype="Number"/>
+                </td>
+                <td>
+                <input name="data.traits.{{key}}.rightAdvance" type="checkbox" {{checked traitpair.rightAdvance}}/>
+                </td>
+                <td>
+                <input name="data.traits.{{key}}.rightReligious" type="checkbox" {{checked traitpair.rightReligious}}/>
+                </td>
+              </div>
+            </tr>
           {{/each}}
+          </table>
         </div>
       </section>
+    </div>
+
+    {{!-- Passions Tab --}}
+    <div class="tab passions" data-group="primary" data-tab="passions">
+      {{#each data.passions as |passion key|}}
+        <label for="data.passions.{{key}}.value" class="resource-label rollable" data-passion="{{key}}">{{passion.label}}</label>
+      <input name="data.passions.{{key}}.value" value="{{passion.value}}" class="resource-content" type="text" data-dtype="Number">
+      {{#passion.type}}
+      <input name="data.passions.{{key}}.type" value="{{passion.type}}" class="resource-content" type="text" data-dtype="String">
+      {{/passion.type}}
+      {{/each}}
     </div>
 
     {{!-- Household Tab --}}
@@ -158,30 +241,30 @@
         <h3>{{localize 'Pendragon.GloryAwards.Label'}}</h3>
         {{#each data.gloryRewards as |glory key|}}
           <label for="data.gloryRewards.{{key}}.value" class="resource-label flexlarge align-left">{{glory.label}}</label>
-          <input name="data.gloryRewards.{{key}}.value" value="{{glory.value}}" data-dtype="number"/>
+          <input name="data.gloryRewards.{{key}}.value" value="{{glory.value}}" data-dtype="Number" type="text"/>
         {{/each}}
 
         <h3>{{localize 'Pendragon.JoustRecord.Label'}}</h3>
-        <label for="data.joustRecord.wins.value" class="resource-label flexlarge align-left">{{localize 'Pendragon.Joust.Wins'}}</label>
-        <input name="data.joustRecord.wins.value" value="{{data.joustRecord.wins}}" data-dtype="number"/>
-        <label for="data.joustRecord.losses.value" class="resource-label flexlarge align-left">{{localize 'Pendragon.Joust.Losses'}}</label>
-        <input name="data.joustRecord.losses.value" value="{{data.joustRecord.losses}}" data-dtype="number"/>
+        <label for="data.joustRecord.wins" class="resource-label flexlarge align-left">{{localize 'Pendragon.Joust.Wins'}}</label>
+        <input name="data.joustRecord.wins" value="{{data.joustRecord.wins}}" data-dtype="Number" type="text"/>
+        <label for="data.joustRecord.losses" class="resource-label flexlarge align-left">{{localize 'Pendragon.Joust.Losses'}}</label>
+        <input name="data.joustRecord.losses" value="{{data.joustRecord.losses}}" data-dtype="Number" type="text"/>
 
         <h3>{{localize 'Pendragon.Holdings.Label'}}</h3>
         <table>
           <tr>
-            <th>{{Pendragon.Name}}</th>
-            <th>{{Pendragon.Glory}}</th>
+            <th>{{localize Pendragon.Name}}</th>
+            <th>{{localize Pendragon.Glory}}</th>
             <th></th>
           </tr>
           {{#each data.holdings as |holding key|}}
           {{#holding}}
           <tr>
             <td>
-              <input name="data.holdings.{{key}}.name" value="{{holding.name}}" data-dtype="string"/>
+              <input name="data.holdings.{{key}}.name" value="{{holding.name}}" type="text" data-dtype="String"/>
             </td>
             <td>
-              <input name="data.holdings.{{key}}.glory" value="{{holding.glory}}" data-dtype="number"/>
+              <input name="data.holdings.{{key}}.glory" value="{{holding.glory}}" type="text" data-dtype="Number"/>
             </td>
             <td>
               <i class="holdings-delete fas fa-trash" data-holding="{{key}}"></i>
@@ -200,26 +283,26 @@
         <h4>{{localize 'Pendragon.Equipment.Money'}}</h4>
         {{#each data.equipment.funds as |amount key|}}
         <label for="data.equipment.funds.{{key}}.value"> {{amount.label}} </label>
-        <input name="data.equipment.funds.{{key}}.value" value="{{amount.value}}" data-dtype="number">
+        <input name="data.equipment.funds.{{key}}.value" value="{{amount.value}}" type="text" data-dtype="Number">
         {{/each}}
         <h4>{{localize 'Pendragon.Equipment.Gear'}}</h4>
         {{#each data.equipment.gear_sets as |gearset key|}}
         <label for="data.equipment.gear_sets.{{key}}.horse"> {{localize 'Pendragon.GearSets.HorseNumber'}} </label>
-        <input name="data.equipment.gear_sets.{{key}}.horse" value="{{gearset.horse}}" data-dtype="number">
+        <input name="data.equipment.gear_sets.{{key}}.horse" value="{{gearset.horse}}" type="text" data-dtype="Number">
         <label for="data.equipment.gear_sets.{{key}}.description"> {{gearset.label}} </label>
-        <input name="data.equipment.gear_sets.{{key}}.description" value="{{gearset.description}}" data-dtype="string">
+        <input name="data.equipment.gear_sets.{{key}}.description" value="{{gearset.description}}" type="text" data-dtype="String">
         <br/>
         {{/each}}
         <label for="data.equipment.clothing.type"> {{localize 'Pendragon.Equipment.Clothes'}} </label>
-        <input name="data.equipment.clothing.type" value="{{data.equipment.clothing.type}}" data-dtype="string">
+        <input name="data.equipment.clothing.type" value="{{data.equipment.clothing.type}}" data-dtype="String" type="text">
         <label for="data.equipment.clothing.value"> {{localize 'Pendragon.LibraValue'}} </label>
-        <input name="data.equipment.clothing.value" value="{{data.equipment.clothing.value}}" data-dtype="number">
+        <input name="data.equipment.clothing.value" value="{{data.equipment.clothing.value}}" data-dtype="Number" type="text">
         <br/>
 
         <label for="data.equipment.possessions_at_home">{{localize 'Pendragon.Equipment.AtHome'}}</label>
-        <input name="data.equipment.possessions_at_home" value="{{data.equipment.possessions_at_home}}" data-dtype="string"/>
+        <input name="data.equipment.possessions_at_home" value="{{data.equipment.possessions_at_home}}" type="text" data-dtype="String"/>
 
-        <h4>{{localize 'Pendragon.Equipment.History'}}</h4>
+        <h4>{{localize 'Pendragon.History'}}</h4>
         <table>
           <tr>
             <th>{{localize 'Pendragon.Year'}}</th>
@@ -230,9 +313,9 @@
           {{#each data.history as |hevent key|}}
           {{#hevent}}
           <tr>
-            <td><input name="data.history.{{key}}.year" value="{{hevent.year}}" data-dtype="number"></td>
-            <td><input name="data.history.{{key}}.description" value="{{hevent.description}}" data-dtype="string"></td>
-            <td><input name="data.history.{{key}}.glory" value="{{hevent.glory}}" data-dtype="number"></td>
+            <td><input name="data.history.{{key}}.year" value="{{hevent.year}}" type="text" data-dtype="Number"></td>
+            <td><input name="data.history.{{key}}.description" value="{{hevent.description}}" type="text" data-dtype="String"></td>
+            <td><input name="data.history.{{key}}.glory" value="{{hevent.glory}}" type="text" data-dtype="Number"></td>
             <td><i class="history-delete fas fa-trash" data-history="{{key}}"></i></td>
           </tr>
           {{/hevent}}
@@ -249,7 +332,7 @@
           {{#each data.army as |count knight_class|}}
           <tr>
             <td>{{knight_class}}</td>
-            <td><input name="data.army.{{knight_class}}" value="{{count}}" data-dtype="number"/></td>
+            <td><input name="data.army.{{knight_class}}" value="{{count}}" type="text" data-dtype="Number"/></td>
           </tr>
           {{/each}}
         </table>
@@ -257,77 +340,153 @@
         <h4>{{localize 'Pendragon.Equipment.FamilyHistory'}}</h4>
         <section>
           <label for="data.household.current_year">{{localize 'Pendragon.CurrentYear'}}</label>
-          <input name="data.household.current_year" value="{{data.household.current_year}}" data-dtype="number"/>
+          <input name="data.household.current_year" value="{{data.household.current_year}}" data-dtype="Number" type="text"/>
           <br/>
 
           <label for="data.household.born">{{localize 'Pendragon.Born'}}</label>
-          <input name="data.household.born" value="{{data.household.born}}" data-dtype="number"/>
+          <input name="data.household.born" value="{{data.household.born}}" data-dtype="Number" type="text"/>
           <br/>
 
           <label for="data.household.squired">{{localize 'Pendragon.Squired'}}</label>
-          <input name="data.household.squired" value="{{data.household.squired}}" data-dtype="number"/>
+          <input name="data.household.squired" value="{{data.household.squired}}" data-dtype="Number" type="text"/>
           <br/>
 
           <label for="data.household.knighted">{{localize 'Pendragon.Knighted'}}</label>
-          <input name="data.household.knighted" value="{{data.household.knighted}}" data-dtype="number"/>
+          <input name="data.household.knighted" value="{{data.household.knighted}}" data-dtype="Number" type="text"/>
           <br/>
 
           <label for="data.household.round_table">{{localize 'Pendragon.RoundTable'}}</label>
-          <input name="data.household.round_table" value="{{data.household.round_table}}" data-dtype="number"/>
+          <input name="data.household.round_table" value="{{data.household.round_table}}" data-dtype="Number" type="text"/>
           <br/>
 
           <label for="data.household.landed">{{localize 'Pendragon.Landed'}}</label>
-          <input name="data.household.landed" value="{{data.household.landed}}" data-dtype="number"/>
+          <input name="data.household.landed" value="{{data.household.landed}}" data-dtype="Number" type="text"/>
           <br/>
 
           <label for="data.household.ennobled">{{localize 'Pendragon.Ennobled'}}</label>
-          <input name="data.household.ennobled" value="{{data.household.ennobled}}" data-dtype="number"/>
+          <input name="data.household.ennobled" value="{{data.household.ennobled}}" data-dtype="Number" type="text"/>
           <br/>
 
           <label for="data.household.wed">{{localize 'Pendragon.Wed'}}</label>
-          <input name="data.household.wed" value="{{data.household.wed}}" data-dtype="number"/>
+          <input name="data.household.wed" value="{{data.household.wed}}" data-dtype="Number" type="text"/>
           <br/>
 
           <label for="data.household.died">{{localize 'Pendragon.Died'}}</label>
-          <input name="data.household.died" value="{{data.household.died}}" data-dtype="number"/>
+          <input name="data.household.died" value="{{data.household.died}}" data-dtype="Number" type="text"/>
           <br/>
 
           <label for="data.household.fathers_name">{{localize 'Pendragon.FathersName'}}</label>
-          <input name="data.household.fathers_name" value="{{data.household.fathers_name}}" data-dtype="string"/>
+          <input name="data.household.fathers_name" value="{{data.household.fathers_name}}" data-dtype="String" type="text"/>
           <br/>
 
           <label for="data.household.class">{{localize 'Pendragon.Class'}}</label>
-          <input name="data.household.class" value="{{data.household.class}}" data-dtype="string"/>
+          <input name="data.household.class" value="{{data.household.class}}" data-dtype="String" type="text"/>
           <br/>
 
           <label for="data.household.sons_glory">{{localize 'Pendragon.SonsGlory'}}</label>
-          <input name="data.household.sons_glory" value="{{data.household.sons_glory}}" data-dtype="number"/>
+          <input name="data.household.sons_glory" value="{{data.household.sons_glory}}" data-dtype="Number" type="text"/>
           <br/>
 
           <label for="data.household.family_wealth">{{localize 'Pendragon.FamilyWealth'}}</label>
-          <input name="data.household.family_wealth" value="{{data.household.family_wealth}}" data-dtype="number"/>
+          <input name="data.household.family_wealth" value="{{data.household.family_wealth}}" data-dtype="Number" type="text"/>
           <br/>
 
-          <label for="data.house.family_characteristic">{{localize 'Pendragon.FamilyCharacteristic'}}</label>
-          <input name="data.house.family_characteristic" value="{{data.household.family_characteristic.skill}}" data-dtype="string"/>
-          <input name="data.house.family_characteristic" value="{{data.household.family_characteristic.bonus}}" data-dtype="number"/>
+          <label for="data.household.family_characteristic.skill">{{localize 'Pendragon.FamilyCharacteristic'}}</label>
+          <input name="data.household.family_characteristic.skill" value="{{data.household.family_characteristic.skill}}" data-dtype="String" type="text"/>
+          <input name="data.household.family_characteristic.bonus" value="{{data.household.family_characteristic.bonus}}" data-dtype="Number" type="text"/>
           <br/>
 
           <label for="data.household.wife">{{localize 'Pendragon.Wife'}}</label>
-          <input name="data.household.wife" value="{{data.household.wife}}" data-dtype="string"/>
+          <input name="data.household.wife" value="{{data.household.wife}}" data-dtype="String" type="text"/>
           <br/>
 
           <label for="data.household.lover">{{localize 'Pendragon.Lover'}}</label>
-          <input name="data.household.lover" value="{{data.household.lover}}" data-dtype="string"/>
+          <input name="data.household.lover" value="{{data.household.lover}}" data-dtype="String" type="text"/>
           <br/>
 
           <label for="data.household.children">{{localize 'Pendragon.Children'}}</label>
-          <input name="data.household.children" value="{{data.household.children}}" data-dtype="string"/>
+          <input name="data.household.children" value="{{data.household.children}}" data-dtype="String" type="text"/>
           <br/>
 
           <label for="data.household.will">{{localize 'Pendragon.Will'}}</label>
-          <input name="data.household.will" value="{{data.household.will}}" data-dtype="string"/>
+          <input name="data.household.will" value="{{data.household.will}}" data-dtype="String" type="text"/>
         </section>
+      </section>
+    </div>
+
+    {{!-- Followers Tab --}}
+    <div class="tab followers" data-group="primary" data-tab="followers">
+      <section class="">
+        <h4>Squire</h4>
+        <label for="data.followers.squire.name">Name</label>
+        <input name="data.followers.squire.name" value="{{data.followers.squire.name}}" type="text" data-dtype="String">
+
+        <label for="data.followers.squire.age">Age</label>
+        <input name="data.followers.squire.age" value="{{data.followers.squire.age}}" type="text" data-dtype="Number">
+
+        <label for="data.followers.squire.first_aid" class="rollable" data-squireskill="first_aid">First Aid <i class="fas fa-dice"></i></label>
+        <input name="data.followers.squire.first_aid" value="{{data.followers.squire.first_aid}}" type="text" data-dtype="Number">
+
+        <label for="data.followers.squire.battle" class="rollable" data-squireskill="battle">Battle <i class="fas fa-dice"></i></label>
+        <input name="data.followers.squire.battle" value="{{data.followers.squire.battle}}" type="text" data-dtype="Number">
+
+        <label for="data.followers.squire.horsemanship" class="rollable" data-squireskill="horsemanship">Horsemanship <i class="fas fa-dice"></i></label>
+        <input name="data.followers.squire.horsemanship" value="{{data.followers.squire.horsemanship}}" type="text" data-dtype="Number">
+
+        <label class="rollable" data-squireskill="otherSkill">Other Skill <i class="fas fa-dice"></i></label>
+        <input name="data.followers.squire.otherSkill.name" value="{{data.followers.squire.otherSkill.name}}" type="text" data-dtype="String">
+        <input name="data.followers.squire.otherSkill.value" value="{{data.followers.squire.otherSkill.value}}" type="text" data-dtype="String">
+      </section>
+      <br>
+      <section>
+        <h4>Warhorse</h4>
+        <label for="data.followers.warhorse.name">Name</label>
+        <input name="data.followers.warhorse.name" value="{{data.followers.warhorse.name}}" type="text" data-dtype="String">
+
+        <label for="data.followers.warhorse.damage" class="rollable" data-warhorse_damage="{{data.followers.warhorse.damage}}">Damage <i class="fas fa-dice"></i></label>
+        <input name="data.followers.warhorse.damage" value="{{data.followers.warhorse.damage}}" type="text" data-dtype="Number">
+
+        <label for="data.followers.warhorse.move">Move</label>
+        <input name="data.followers.warhorse.move" value="{{data.followers.warhorse.move}}" type="text" data-dtype="Number">
+
+        <label for="data.followers.warhorse.armor">Armor</label>
+        <input name="data.followers.warhorse.armor" value="{{data.followers.warhorse.armor}}" type="text" data-dtype="Number">
+
+        <label for="data.followers.warhorse.hp">Hitpoints</label>
+        <input name="data.followers.warhorse.hp" value="{{data.followers.warhorse.hp}}" type="text" data-dtype="Number">
+
+        <label for="data.followers.warhorse.size" class="rollable" data-warhorse="size">Size <i class="fas fa-dice"></i></label>
+        <input name="data.followers.warhorse.size" value="{{data.followers.warhorse.size}}" type="text" data-dtype="Number">
+
+        <label for="data.followers.warhorse.constitution" class="rollable" data-warhorse="constitution">Constitution <i class="fas fa-dice"></i></label>
+        <input name="data.followers.warhorse.constitution" value="{{data.followers.warhorse.constitution}}" type="text" data-dtype="Number">
+
+        <label for="data.followers.warhorse.dexterity" class="rollable" data-warhorse="dexterity">Dexterity <i class="fas fa-dice"></i></label>
+        <input name="data.followers.warhorse.dexterity" value="{{data.followers.warhorse.dexterity}}" type="text" data-dtype="Number">
+      </section>
+      <section>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Movement</th>
+            <th></th>
+          </tr>
+        {{#each data.followers.ridingHorses as |horse key|}}
+          {{#horse}}
+          {{key}}
+          <tr>
+            <td>
+              <input data-dtype="String" type="text" name="data.followers.ridingHorses.{{key}}.name" value="{{horse.name}}"/>
+            </td>
+            <td>
+              <input data-dtype="Number" type="text" name="data.followers.ridingHorses.{{key}}.move" value="{{horse.move}}"/>
+            </td>
+            <td><i class="horse-delete fas fa-trash" data-horse="{{key}}"></i></td>
+          </tr>
+          {{/horse}}
+        {{/each}}
+        </table>
+        <a class="horse-create">{{localize 'Pendragon.CreateHorse'}}<i class="fas fa-plus"></i></a>
       </section>
     </div>
   </section>

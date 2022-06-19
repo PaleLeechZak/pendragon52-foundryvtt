@@ -99,3 +99,5 @@ PENDRAGON52.gloryRewards = {};
 PENDRAGON52.funds = {};
 
 PENDRAGON52.gear_sets = {};
+
+PENDRAGON52.passions = {};

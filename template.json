@@ -8,6 +8,7 @@
           "min": 0,
           "max": 15
         },
+        "wounds": "",
         "initiative": 0,
         "initiative_tiebreaker": 0,
         "glory": 0,
@@ -93,8 +94,33 @@
           "mid_knights": 0,
           "young_knights": 0,
           "total_family_knights": 0,
+          "vassal_knights": 0,
           "lineage_men": 0,
           "levy": 0
+        },
+        "followers": {
+          "squire": {
+            "name": "",
+            "age": 15,
+            "first_aid": 0,
+            "battle": 0,
+            "horsemanship": 0,
+            "otherSkill": {
+              "name": "",
+              "value": 0
+            }
+          },
+          "warhorse": {
+            "name": "",
+            "damage": 1,
+            "move": 0,
+            "armor": 0,
+            "hp": 1,
+            "size": 10,
+            "constitution": 10,
+            "dexterity": 10
+          },
+          "ridingHorses": {}
         },
         "household": {
           "current_year": 480,
@@ -253,68 +279,68 @@
         },
         "traits": {
           "chaste_lustful": {
-            "leftName": "chaste","leftAmount": 10, "leftAdvance": false,
-            "rightName": "lustful", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "chaste","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "lustful", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "energetic_lazy": {
-            "leftName": "energetic","leftAmount": 10, "leftAdvance": false,
-            "rightName": "lazy", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "energetic","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "lazy", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "forgiving_vengeful": {
-            "leftName": "forgiving","leftAmount": 10, "leftAdvance": false,
-            "rightName": "vengeful", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "forgiving","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "vengeful", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "generous_selfish": {
-            "leftName": "generous","leftAmount": 10, "leftAdvance": false,
-            "rightName": "selfish", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "generous","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "selfish", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "honest_deceitful": {
-            "leftName": "honest","leftAmount": 10, "leftAdvance": false,
-            "rightName": "deceitful", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "honest","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "deceitful", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "just_arbitrary": {
-            "leftName": "just","leftAmount": 10, "leftAdvance": false,
-            "rightName": "arbitrary", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "just","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "arbitrary", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "merciful_cruel": {
-            "leftName": "merciful","leftAmount": 10, "leftAdvance": false,
-            "rightName": "cruel", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "merciful","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "cruel", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "modest_proud": {
-            "leftName": "modest","leftAmount": 10, "leftAdvance": false,
-            "rightName": "proud", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "modest","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "proud", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "prudent_reckless": {
-            "leftName": "prudent","leftAmount": 10, "leftAdvance": false,
-            "rightName": "reckless", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "prudent","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "reckless", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "spiritual_worldly": {
-            "leftName": "spiritual","leftAmount": 10, "leftAdvance": false,
-            "rightName": "worldly", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "spiritual","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "worldly", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "temperate_indulgent": {
-            "leftName": "temperate","leftAmount": 10, "leftAdvance": false,
-            "rightName": "indulgent", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "temperate","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "indulgent", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "trusting_suspicious": {
-            "leftName": "trusting","leftAmount": 10, "leftAdvance": false,
-            "rightName": "suspicious", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "trusting","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "suspicious", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           },
           "valorous_cowardly": {
-            "leftName": "valorous","leftAmount": 10, "leftAdvance": false,
-            "rightName": "cowardly", "rightAmount": 10, "rightAdvance": false,
+            "leftName": "valorous","leftAmount": 10, "leftAdvance": false, "leftReligious": false,
+            "rightName": "cowardly", "rightAmount": 10, "rightAdvance": false, "rightReligious": false,
             "balance":  20, "excepted": 0
           }
         },

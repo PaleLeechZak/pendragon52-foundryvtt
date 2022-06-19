@@ -8,28 +8,28 @@ export class PendragonDice {
             isFumble: false,
             target: roll.data.target,
             total: roll.terms[0].total,
+            dice: roll.terms[0].values,
+            faces: roll.terms[0].faces,
+            reason: roll.data.reason,
         };
-
-        console.log(data, roll);
 
         let die = roll.terms[0].total;
 
-
-        if(roll.data.type == "check") {
+        if(roll.data.type === "check") {
             if(die <= roll.data.target && die !== 20) {
-                if(die == roll.data.target) {
+                if(die === roll.data.target || (roll.data.target >= 20 && die === 19)) {
                     result.isCritical = true;
                 } else {
                     result.isSuccess = true;
                 }
             } else {
-                if(die == 20) {
+                if(die === 20) {
                     result.isFumble = true;
                 } else {
                     result.isFailure = true;
                 }
             }
-        } else if(roll.data.type == "advancement") {
+        } else if(roll.data.type === "advancement") {
             if (die > roll.data.target || die === 20) {
                 result.isSuccess = true;
             } else {
@@ -66,8 +66,6 @@ export class PendragonDice {
             parts.push(form.bonus.value);
         }
 
-        console.log(parts);
-        console.log(parts.join("+"));
         const roll = new Roll(parts.join("+"), data).roll({async:false});
 
         // Convert the roll to a chat message and return the roll
