@@ -1,23 +1,32 @@
 export class PendragonDice {
     static digestResult(data, roll) {
+        let die = roll.terms[0].total;
+        let target;
+
+        if(data.targetModifier) {
+            target = roll.data.target + data.targetModifier;
+        }
+        else {
+            target = roll.data.target;
+        }
+
         let result = {
             type: roll.data.type,
             isSuccess: false,
             isFailure: false,
             isCritical: false,
             isFumble: false,
-            target: roll.data.target,
-            total: roll.terms[0].total,
+            target,
+            total: die,
             dice: roll.terms[0].values,
             faces: roll.terms[0].faces,
             reason: roll.data.reason,
         };
 
-        let die = roll.terms[0].total;
 
         if(roll.data.type === "check") {
-            if(die <= roll.data.target && die !== 20) {
-                if(die === roll.data.target || (roll.data.target >= 20 && die === 19)) {
+            if(die <= target && die !== 20) {
+                if(die === target || (target >= 20 && die === 19)) {
                     result.isCritical = true;
                 } else {
                     result.isSuccess = true;
@@ -30,7 +39,7 @@ export class PendragonDice {
                 }
             }
         } else if(roll.data.type === "advancement") {
-            if (die > roll.data.target || die === 20) {
+            if (die > target || die === 20) {
                 result.isSuccess = true;
             } else {
                 result.isFailure = true;
@@ -43,6 +52,7 @@ export class PendragonDice {
     static async sendRoll({
         parts = [],
         data = {},
+        bonus = null,
         title = null,
         flavor = null,
         speaker = null,
@@ -55,6 +65,12 @@ export class PendragonDice {
           speaker: speaker
         };
 
+        let rollData = data;
+
+        if(bonus) {
+            rollData.targetModifier = bonus;
+        }
+
         let templateData = {
             title,
             flavor,
@@ -62,11 +78,11 @@ export class PendragonDice {
         };
 
         // Optionally include a situational bonus
-        if (form !== null && form.bonus.value) {
-            parts.push(form.bonus.value);
-        }
+        // if (form !== null && form.bonus.value) {
+        //     parts.push(form.bonus.value);
+        // }
 
-        const roll = new Roll(parts.join("+"), data).roll({async:false});
+        const roll = new Roll(parts.join("+"), rollData).roll({async:false});
 
         // Convert the roll to a chat message and return the roll
         let rollMode = game.settings.get("core", "rollMode");
@@ -129,7 +145,9 @@ export class PendragonDice {
                 label: game.i18n.localize("Pendragon.Dialog.Roll"),
                 icon: '<i class="fas fa-dice-d20"></i>',
                 callback: (html) => {
+                    const bonus = Number.parseInt(html.find('[name="bonus"]').val());
                     rolled = true
+                    rollData.bonus = bonus;
                     roll = PendragonDice.sendRoll(rollData);
                 },
             },
