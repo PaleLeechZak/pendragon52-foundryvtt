@@ -54,7 +54,9 @@ export class PendragonActor extends Actor {
     this.pruneHistory(data);
   }
 
-  migrate(data) {
+  migrate(actorData) {
+    const data = actorData.data;
+
     if(data["army"] && data.army["vassal_knights"] === undefined) {
       data.army.vassal_knights = 0
     }
