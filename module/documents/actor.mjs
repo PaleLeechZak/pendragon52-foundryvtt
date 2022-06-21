@@ -102,8 +102,20 @@ export class PendragonActor extends Actor {
 
   hasReligiousBonus(data) {
     let count = 0;
+    let target = 0;
+
     for(let traitName in data.traits)
     {
+      if(data.traits[traitName].leftReligious)
+      {
+        target++;
+      }
+
+      if(data.traits[traitName].rightReligious)
+      {
+        target++;
+      }
+
       if(data.traits[traitName].leftValue >= 16 && data.traits[traitName].leftReligious) {
         count++;
       }
@@ -113,7 +125,7 @@ export class PendragonActor extends Actor {
       }
     }
 
-    return count === 5;
+    return count === target;
   }
 
   prunePassions(data) {

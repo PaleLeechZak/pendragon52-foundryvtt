@@ -1,6 +1,13 @@
 export class PendragonDice {
+    static DiceTypes = {
+        straight: 'straight',
+        check: 'check',
+        advancement: 'advancement',
+    };
+
     static digestResult(data, roll) {
         let die = roll.terms[0].total;
+
         let target;
 
         if(data.targetModifier) {
@@ -17,14 +24,21 @@ export class PendragonDice {
             isCritical: false,
             isFumble: false,
             target,
-            total: die,
+            total: roll._total,
             dice: roll.terms[0].values,
             faces: roll.terms[0].faces,
             reason: roll.data.reason,
         };
 
+        if(typeof(roll.terms[2]) === 'object' && roll.terms[2].faces) {
+            die += roll.terms[2].total;
+            result.dice = result.dice.concat(roll.terms[2].values);
+        }
 
-        if(roll.data.type === "check") {
+        console.log(result);
+
+
+        if(roll.data.type === this.DiceTypes.check) {
             if(die <= target && die !== 20) {
                 if(die === target || (target >= 20 && die === 19)) {
                     result.isCritical = true;
@@ -38,7 +52,7 @@ export class PendragonDice {
                     result.isFailure = true;
                 }
             }
-        } else if(roll.data.type === "advancement") {
+        } else if(roll.data.type === this.DiceTypes.advancement) {
             if (die > target || die === 20) {
                 result.isSuccess = true;
             } else {
@@ -67,8 +81,10 @@ export class PendragonDice {
 
         let rollData = data;
 
-        if(bonus) {
+        if(bonus && data.type !== this.DiceTypes.straight) {
             rollData.targetModifier = bonus;
+        } else if(bonus) {
+            parts.push(bonus + 'd6');
         }
 
         let templateData = {
@@ -76,11 +92,6 @@ export class PendragonDice {
             flavor,
             data
         };
-
-        // Optionally include a situational bonus
-        // if (form !== null && form.bonus.value) {
-        //     parts.push(form.bonus.value);
-        // }
 
         const roll = new Roll(parts.join("+"), rollData).roll({async:false});
 
