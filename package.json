@@ -1,6 +1,6 @@
 {
   "name": "pendragon52",
-  "version": "1.0.0",
+  "version": "0.2.1",
   "description": "CSS compiler for the Pendragon 5.2 system",
   "scripts": {
     "build": "gulp build",

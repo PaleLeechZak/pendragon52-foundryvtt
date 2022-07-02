@@ -320,31 +320,33 @@ export class pendragonActorSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
+    const actorData = this.actor.data.data;
+
     console.log('Rolling?', dataset);
     if(dataset['stat'] !== undefined) {
-      this.RollCheck(this.actor.data.data.statistics[dataset['stat']].value, dataset['stat']);
+      this.RollCheck(actorData.statistics[dataset['stat']].value, dataset['stat']);
     } else if(dataset['combatskill'] !== undefined) {
-      this.RollCheck(this.actor.data.data.skills.combat[dataset['combatskill']].value, dataset['combatskill']);
+      this.RollSkill(dataset['combatskill'], actorData.skills.combat[dataset['combatskill']]);
     } else if(dataset['otherskill'] !== undefined) {
-      this.RollCheck(this.actor.data.data.skills.others[dataset['otherskill']].value, dataset['otherskill']);
+      this.RollSkill(dataset['otherskill'], actorData.skills.others[dataset['otherskill']]);
     } else if(dataset['lefttrait']) {
-      this.RollCheck(this.actor.data.data.traits[dataset['lefttrait']].leftAmount, dataset['lefttrait']);
+      this.RollCheck(actorData.traits[dataset['lefttrait']].leftAmount, actorData.traits[dataset['lefttrait']].leftName);
     } else if(dataset['righttrait']) {
-      this.RollCheck(this.actor.data.data.traits[dataset['righttrait']].rightAmount, dataset['righttrait']);
+      this.RollCheck(actorData.traits[dataset['righttrait']].rightAmount, actorData.traits[dataset['righttrait']].rightName);
     } else if(dataset['damagedice']) {
       this.RollDamage(dataset['damagedice'], 'Damage');
     } else if(dataset['warhorse']){
-      this.RollCheck(this.actor.data.data.followers.warhorse[dataset['warhorse']], 'Warhorse ' + dataset['warhorse']);
+      this.RollCheck(actorData.followers.warhorse[dataset['warhorse']], 'Warhorse ' + dataset['warhorse']);
     } else if(dataset['warhorse_damage']){
       this.RollDamage(dataset['warhorse_damage'], 'Warhorse Damage');
     } else if(dataset['squireskill']){
       if(dataset['squireskill'] === 'otherSkill') {
-        this.RollCheck(this.actor.data.data.followers.squire[dataset['squireskill']].value, 'Squire Skill ' + this.actor.data.data.followers.squire[dataset['squireskill']].name);
+        this.RollCheck(actorData.followers.squire[dataset['squireskill']].value, 'Squire Skill ' + this.actor.data.data.followers.squire[dataset['squireskill']].name);
       } else {
-        this.RollCheck(this.actor.data.data.followers.squire[dataset['squireskill']], 'Squire Skill ' + dataset['squireskill']);
+        this.RollCheck(actorData.followers.squire[dataset['squireskill']], 'Squire Skill ' + dataset['squireskill']);
       }
     } else if(dataset['passion']) {
-      this.RollCheck(this.actor.data.data.passions[dataset['passion']].value, dataset['passion']);
+      this.RollCheck(actorData.passions[dataset['passion']].value, dataset['passion']);
     }
   }
 
@@ -419,6 +421,14 @@ export class pendragonActorSheet extends ActorSheet {
         roll: {blindroll: false},
         reason,
       }});
+  }
+
+  RollSkill(key, skill) {
+    if(skill.custom) {
+      this.RollCheck(skill.value, skill.name);
+    } else {
+      this.RollCheck(skill.value, key);
+    }
   }
 
   //TODO: CORE: Implement Winter Phase
