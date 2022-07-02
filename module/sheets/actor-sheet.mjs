@@ -346,7 +346,7 @@ export class pendragonActorSheet extends ActorSheet {
         this.RollCheck(actorData.followers.squire[dataset['squireskill']], 'Squire Skill ' + dataset['squireskill']);
       }
     } else if(dataset['passion']) {
-      this.RollCheck(actorData.passions[dataset['passion']].value, dataset['passion']);
+      this.RollPassion(dataset['passion'], actorData.passions[dataset['passion']]);
     }
   }
 
@@ -428,6 +428,14 @@ export class pendragonActorSheet extends ActorSheet {
       this.RollCheck(skill.value, skill.name);
     } else {
       this.RollCheck(skill.value, key);
+    }
+  }
+
+  RollPassion(key, passion) {
+    if(passion.custom) {
+      this.RollCheck(passion.value, passion.name + `(${passion.type})`);
+    } else {
+      this.RollCheck(passion.value, key);
     }
   }
 
